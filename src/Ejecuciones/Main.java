@@ -6,6 +6,8 @@
 package Ejecuciones;
 
 import Conexión.SQL_Conexión;
+import Controlador.Gestor_Producto;
+import Modelo.Producto;
 import Vista.MenuPrincipal;
 import Vista.Principal;
 
@@ -20,11 +22,12 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        MenuPrincipal p = new MenuPrincipal();
         
-        p.setVisible(true);
+        Producto prod = new Producto();
+        prod.setNombre("Ravioles");
+        prod.setCodigo("RAV001");
         
-
+        Gestor_Producto.altaProducto(prod);
     }
     
 }

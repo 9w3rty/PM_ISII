@@ -5,6 +5,7 @@
 package Controlador;
 
 import Conexión.SQL_Conexión;
+import Modelo.Producto;
 
 /**
  *
@@ -12,7 +13,10 @@ import Conexión.SQL_Conexión;
  */
 public class Gestor_Producto {
     
-    public boolean altaProducto(String queryAltaProducto) {
+    public static boolean altaProducto( Producto unProducto ) {
+        SQL_Conexión.getInstance().connect();
+        String queryAltaProducto="INSERT INTO producto (nbre_p, cod_p) VALUES ( '"+ unProducto.getNombre() +"', '"+unProducto.getCodigo()+"' ) ";
+        
         return SQL_Conexión.getInstance().updateQuery(queryAltaProducto);
     }
     
