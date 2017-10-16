@@ -20,6 +20,21 @@ public class Gestor_Producto {
         return SQL_Conexión.getInstance().updateQuery(queryAltaProducto);
     }
     
+    public static boolean bajaProducto( String codProducto ) {
+        SQL_Conexión.getInstance().connect();
+        String query = "DELETE FROM producto WHERE cod_p='"+ codProducto +"'";
+        
+        return SQL_Conexión.getInstance().updateQuery(query);
+    }
+    
+    public static boolean actualizarProducto(String codProdcto, Producto nuevoProducto) {
+        SQL_Conexión.getInstance().connect();
+        
+        String query = "UPDATE producto SET nbre_p='" + nuevoProducto.getNombre() + "', cod_p='"+nuevoProducto.getCodigo()+"'";
+        
+        return SQL_Conexión.getInstance().updateQuery(query);
+    }
+    
     public void consultar_nombre() {}
     public void consultar_stock() {}
     public void consultar_peso() {}

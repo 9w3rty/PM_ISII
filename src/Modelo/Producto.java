@@ -100,9 +100,15 @@ public class Producto {
 	private Variedad m_Variedad;
 	private Presentación m_Presentacion;
 
+        // CONSTRUCTOR
 	public Producto(){
 
 	}
+        
+        public Producto(String nom, String cod) {
+            nombre = nom;
+            codigo = cod;
+        }
 
     /**
      * @return the codigo

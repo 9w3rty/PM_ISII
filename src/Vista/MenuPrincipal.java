@@ -5,6 +5,11 @@
  */
 package Vista;
 
+import Controlador.Gestor_Producción;
+import Controlador.Gestor_Producto;
+import Modelo.Producto;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author josek
@@ -16,6 +21,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
      */
     public MenuPrincipal() {
         initComponents();
+        
+        JP_info_Productos.removeAll();
+        JP_info_Productos.add(JP_Alta_Producto);
+        JP_info_Productos.repaint();
+        JP_info_Productos.revalidate();
+        
     }
 
     /**
@@ -322,9 +333,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         JB_Aceptar_NuevoProducto.setText("Aceptar");
         JB_Aceptar_NuevoProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        JB_Aceptar_NuevoProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JB_Aceptar_NuevoProductoActionPerformed(evt);
+            }
+        });
 
-        JB_Cancelar_NuevoProdu.setText("Cancelar");
+        JB_Cancelar_NuevoProdu.setText("Reset");
         JB_Cancelar_NuevoProdu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        JB_Cancelar_NuevoProdu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JB_Cancelar_NuevoProduActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout JP_Alta_ProductoLayout = new javax.swing.GroupLayout(JP_Alta_Producto);
         JP_Alta_Producto.setLayout(JP_Alta_ProductoLayout);
@@ -343,7 +364,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                         .addComponent(JB_Cancelar_NuevoProdu))
                     .addComponent(JTF_Codigo_Producto)
                     .addComponent(JTF_Nombre_Producto))
-                .addContainerGap(494, Short.MAX_VALUE))
+                .addContainerGap(569, Short.MAX_VALUE))
         );
         JP_Alta_ProductoLayout.setVerticalGroup(
             JP_Alta_ProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -790,6 +811,35 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void JB_Ventas_ComenzarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_Ventas_ComenzarVentaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_JB_Ventas_ComenzarVentaActionPerformed
+
+    private void resetCampos() {
+        JTF_Nombre_Producto.setText("");
+        JTF_Codigo_Producto.setText("");
+    }
+    
+    private void JB_Aceptar_NuevoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_Aceptar_NuevoProductoActionPerformed
+        // TODO add your handling code here:
+        String nombre = JTF_Nombre_Producto.getText();
+        String cod = JTF_Codigo_Producto.getText();
+        
+        Producto p = new Producto(nombre, cod);
+        
+        boolean exito = Gestor_Producto.altaProducto(p);
+        
+        if ( exito ) {
+            String datos= "Código: " + cod + "\nNombre: " + nombre;
+            
+            // Mostramos el éxito de la operación
+            JOptionPane.showMessageDialog(null, "Alta del nuevo producto exitosa: \n\n" + datos +"\n" );
+        }
+        
+        resetCampos();
+    }//GEN-LAST:event_JB_Aceptar_NuevoProductoActionPerformed
+
+    private void JB_Cancelar_NuevoProduActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_Cancelar_NuevoProduActionPerformed
+        // TODO add your handling code here:
+        resetCampos();
+    }//GEN-LAST:event_JB_Cancelar_NuevoProduActionPerformed
 
     /**
      * @param args the command line arguments
