@@ -8,10 +8,12 @@ package Vista;
 import Conexión.SQL_Conexión;
 import Controlador.Gestor_Producción;
 import Controlador.Gestor_Producto;
+import Modelo.FFecha;
 import Modelo.Producto;
 import java.awt.Font;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -26,6 +28,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private String codActualSeleccionado="";
     private String nomActualSeleccionado="";
+    FFecha ffecha = new FFecha();
+    String auxF,auxL;
+    ResultSet rs=null;
+    Gestor_Producción gp;
+    DefaultTableModel modelo;
     /**
      * Creates new form MenuPrincipal
      */
@@ -65,6 +72,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         placeholder1.changeAlpha(0.75f);
         placeholder1.changeStyle(Font.ITALIC);
         
+        TextPrompt placeholder2 = new TextPrompt("Número de Lote", JTF_Producciones_NLote);
+        placeholder2.changeAlpha(0.75f);
+        placeholder2.changeStyle(Font.ITALIC);
     }
 
     /**
@@ -137,16 +147,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         JB_Buscar_Producciones = new javax.swing.JButton();
         JP_info_Producciones = new javax.swing.JPanel();
         JP_Buscar_Producción = new javax.swing.JPanel();
-        JRB_Buscar_Produccion_Fecha = new javax.swing.JRadioButton();
-        JRB_Buscar_Produccion_Lote = new javax.swing.JRadioButton();
+        jOPTB_BPF = new javax.swing.JRadioButton();
+        JBO_Buscar_Produccion_Lote = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
         JB_Producciones_Aceptar_Busqueda = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        JT_Producciones = new javax.swing.JTable();
+        JTF_Producciones_NLote = new javax.swing.JTextField();
+        JDC_Producciones_BuscarFecha = new com.toedter.calendar.JDateChooser();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -278,7 +286,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addGroup(JP_Cambiar_ProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(JL_NNombre)
                     .addComponent(JL_NCodigo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 421, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 479, Short.MAX_VALUE)
                 .addGroup(JP_Cambiar_ProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(JP_Cambiar_ProductoLayout.createSequentialGroup()
                         .addComponent(JB_Aceptar_CambiarProducto)
@@ -699,14 +707,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         JP_info_Producciones.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         JP_info_Producciones.setLayout(new java.awt.CardLayout());
 
-        BG_Buscar_Producciones.add(JRB_Buscar_Produccion_Fecha);
-        JRB_Buscar_Produccion_Fecha.setText("Por Fecha");
+        BG_Buscar_Producciones.add(jOPTB_BPF);
+        jOPTB_BPF.setText("Por Fecha");
 
-        BG_Buscar_Producciones.add(JRB_Buscar_Produccion_Lote);
-        JRB_Buscar_Produccion_Lote.setText("Por Número de Lote");
-        JRB_Buscar_Produccion_Lote.addActionListener(new java.awt.event.ActionListener() {
+        BG_Buscar_Producciones.add(JBO_Buscar_Produccion_Lote);
+        JBO_Buscar_Produccion_Lote.setText("Por Número de Lote");
+        JBO_Buscar_Produccion_Lote.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JRB_Buscar_Produccion_LoteActionPerformed(evt);
+                JBO_Buscar_Produccion_LoteActionPerformed(evt);
             }
         });
 
@@ -714,8 +722,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         JB_Producciones_Aceptar_Busqueda.setText("Aceptar");
         JB_Producciones_Aceptar_Busqueda.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        JB_Producciones_Aceptar_Busqueda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JB_Producciones_Aceptar_BusquedaActionPerformed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        JT_Producciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -726,23 +739,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane3.setViewportView(jTable1);
+        jScrollPane3.setViewportView(JT_Producciones);
 
-        jTextField1.setText("DD");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        JTF_Producciones_NLote.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-
-        jTextField2.setText("MM");
-
-        jTextField3.setText("AAAA");
-
-        jTextField4.setText("Número de Lote");
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                JTF_Producciones_NLoteActionPerformed(evt);
             }
         });
 
@@ -761,22 +762,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addGroup(JP_Buscar_ProducciónLayout.createSequentialGroup()
                         .addGroup(JP_Buscar_ProducciónLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(JRB_Buscar_Produccion_Fecha)
-                            .addGroup(JP_Buscar_ProducciónLayout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(138, 138, 138)
+                            .addComponent(jOPTB_BPF)
+                            .addComponent(JDC_Producciones_BuscarFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(126, 126, 126)
                         .addGroup(JP_Buscar_ProducciónLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(JRB_Buscar_Produccion_Lote, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField4))))
-                .addContainerGap(696, Short.MAX_VALUE))
+                            .addComponent(JBO_Buscar_Produccion_Lote, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(JTF_Producciones_NLote))))
+                .addContainerGap(776, Short.MAX_VALUE))
         );
-
-        JP_Buscar_ProducciónLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jTextField1, jTextField2});
-
         JP_Buscar_ProducciónLayout.setVerticalGroup(
             JP_Buscar_ProducciónLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JP_Buscar_ProducciónLayout.createSequentialGroup()
@@ -784,19 +777,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(JP_Buscar_ProducciónLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JRB_Buscar_Produccion_Fecha)
-                    .addComponent(JRB_Buscar_Produccion_Lote))
+                    .addComponent(jOPTB_BPF)
+                    .addComponent(JBO_Buscar_Produccion_Lote))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(JP_Buscar_ProducciónLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(JP_Buscar_ProducciónLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(JTF_Producciones_NLote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JDC_Producciones_BuscarFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addComponent(JB_Producciones_Aceptar_Busqueda)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(133, Short.MAX_VALUE))
+                .addContainerGap(141, Short.MAX_VALUE))
         );
 
         JP_info_Producciones.add(JP_Buscar_Producción, "card2");
@@ -821,7 +812,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(JTB_Menu, javax.swing.GroupLayout.DEFAULT_SIZE, 747, Short.MAX_VALUE)
+            .addComponent(JTB_Menu)
         );
 
         pack();
@@ -881,9 +872,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         cargarTablaEliminar();
     }//GEN-LAST:event_JB_Baja_ProductoActionPerformed
 
-    private void JRB_Buscar_Produccion_LoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRB_Buscar_Produccion_LoteActionPerformed
+    private void JBO_Buscar_Produccion_LoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBO_Buscar_Produccion_LoteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_JRB_Buscar_Produccion_LoteActionPerformed
+    }//GEN-LAST:event_JBO_Buscar_Produccion_LoteActionPerformed
 
     private void JB_Buscar_ProduccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_Buscar_ProduccionesActionPerformed
         // TODO add your handling code here:
@@ -893,13 +884,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         JP_info_Ventas.revalidate();
     }//GEN-LAST:event_JB_Buscar_ProduccionesActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void JTF_Producciones_NLoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTF_Producciones_NLoteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_JTF_Producciones_NLoteActionPerformed
 
     private void JB_Ventas_ComenzarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_Ventas_ComenzarVentaActionPerformed
         // TODO add your handling code here:
@@ -1024,7 +1011,75 @@ public class MenuPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No se ha eliminado el producto\n\n");
         }
     }//GEN-LAST:event_JB_EliminarActionPerformed
+    
+    //"Caso de uso Buscar Produccion"
+    private void JB_Producciones_Aceptar_BusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_Producciones_Aceptar_BusquedaActionPerformed
+        // TODO add your handling code here:
+                if(jOPTB_BPF.isSelected()){
+            
+            auxF = ffecha.getFecha(JDC_Producciones_BuscarFecha);
+            rs=Gestor_Producción.consultaProduccionFecha(auxF);
+            construir_tabla(rs);
+        }
+        else{
+            if(JBO_Buscar_Produccion_Lote.isSelected()){
+                if(JTF_Producciones_NLote.getText().length()<10){
+                    JOptionPane.showMessageDialog(rootPane,"Númer0 de lote debe tener 10 Caracteres" );
+                }else{
+                    auxL = JTF_Producciones_NLote.getText();
+                     rs=Gestor_Producción.consultaProduccionLote(auxL);
+                     construir_tabla(rs);
+                }
+            }
+        }
+    }//GEN-LAST:event_JB_Producciones_Aceptar_BusquedaActionPerformed
+ public void construir_tabla(ResultSet sr){
+            modelo= new DefaultTableModel();
+            modelo.addColumn("Fecha de Elaboración");
+            modelo.addColumn("Fecha de Vencimiento");
+            modelo.addColumn("Cantidad Producida");
+            modelo.addColumn("Número de Lote");
+            modelo.addColumn("Nombre del Producto");
+            modelo.addColumn("Variedad del Producto");
+            this.JT_Producciones.setModel(modelo);
+            ArrayList lista = new ArrayList ();
+        //int i;
+                try {
 
+            while ( rs.next() ) {
+
+                    lista.add(rs.getDate(1));
+                    lista.add(rs.getDate(2));
+                    lista.add(rs.getInt(3));
+                    lista.add(rs.getString(4));
+                    lista.add(rs.getString(5));
+                    lista.add(rs.getString(6));
+                
+                modelo.addRow(lista.toArray());
+                
+            }
+        } catch (SQLException ex) {
+
+        }
+        
+    }
+    
+    
+    private void jOPTB_BPFActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        // TODO add your handling code here:
+    }                                         
+
+    private void JTF_Producciones_NLoteKeyTyped(java.awt.event.KeyEvent evt) {                                                
+        // TODO add your handling code here:
+        int  MAX=10;
+        if(JTF_Producciones_NLote.getText().length()>=10){
+            evt.consume();
+            JOptionPane.showMessageDialog(rootPane,"Númer0 de lote debe tener 10 Caracteres" );
+        }
+    }                                               
+
+
+    //FIN CU Buscar Produccines.
     /**
      * @param args the command line arguments
      */
@@ -1062,6 +1117,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup BG_Buscar_Producciones;
+    private javax.swing.JRadioButton JBO_Buscar_Produccion_Lote;
     private javax.swing.JButton JB_Aceptar_CambiarProducto;
     private javax.swing.JButton JB_Aceptar_NuevoProducto;
     private javax.swing.JButton JB_Alta_Producto;
@@ -1075,6 +1131,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton JB_Producciones_Aceptar_Busqueda;
     private javax.swing.JButton JB_Ventas_ComenzarVenta;
     private javax.swing.JButton JB_Ventas_Finalizar;
+    private com.toedter.calendar.JDateChooser JDC_Producciones_BuscarFecha;
     private javax.swing.JLabel JL_Codigo_Producto;
     private javax.swing.JLabel JL_Info_Baja;
     private javax.swing.JLabel JL_Info_en_cambiar;
@@ -1102,8 +1159,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel JP_info_Producciones;
     private javax.swing.JPanel JP_info_Productos;
     private javax.swing.JPanel JP_info_Ventas;
-    private javax.swing.JRadioButton JRB_Buscar_Produccion_Fecha;
-    private javax.swing.JRadioButton JRB_Buscar_Produccion_Lote;
     private javax.swing.JTabbedPane JTB_Menu;
     private javax.swing.JTable JTB_Productos;
     private javax.swing.JTable JTB_Productos1;
@@ -1113,8 +1168,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField JTF_NCodigo_Producto;
     private javax.swing.JTextField JTF_NNombre_Producto;
     private javax.swing.JTextField JTF_Nombre_Producto;
+    private javax.swing.JTextField JTF_Producciones_NLote;
     private javax.swing.JButton JTF_Ventas_Cancelar;
     private javax.swing.JTextField JTF_Ventas_ImpAcc;
+    private javax.swing.JTable JT_Producciones;
     private javax.swing.JTable JT_Ventas_Acumulado;
     private javax.swing.JTable JT_Ventas_Clientes;
     private javax.swing.JTable JT_Ventas_Productos;
@@ -1123,6 +1180,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JRadioButton jOPTB_BPF;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1130,10 +1188,5 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,7 +8,7 @@ package Modelo;
 
 public class Variedad {    
 	private String nombre;
-
+        private String codigo_variedad;
         public Variedad() {
 
         }

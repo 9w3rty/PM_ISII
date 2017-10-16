@@ -1,5 +1,7 @@
 package Modelo;
 
+import java.util.ArrayList;
+
 /**
  * @author josek
  * @version 1.0
@@ -7,10 +9,12 @@ package Modelo;
  */
 public class Venta {
 
-	private int cantidadVendida;
-	private int importeTotal;
-
+	private float importeTotal;
+        private float importeActual;
+        public ArrayList <Producto_Vendido> PV;
+        private String fechav;
 	public Venta(){
+            
 
 	}
 

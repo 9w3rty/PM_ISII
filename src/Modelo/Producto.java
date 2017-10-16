@@ -66,16 +66,7 @@ public class Producto {
     /**
      * @return the m_Variedad
      */
-    public Variedad getM_Variedad() {
-        return m_Variedad;
-    }
 
-    /**
-     * @param m_Variedad the m_Variedad to set
-     */
-    public void setM_Variedad(Variedad m_Variedad) {
-        this.m_Variedad = m_Variedad;
-    }
 
     /**
      * @return the m_Presentacion
@@ -93,11 +84,11 @@ public class Producto {
 
 	private String nombre;
         private String codigo;
+        private String codigo_variedad;
         
 	private Cliente m_Cliente;
 	private Receta m_Receta;
 	private Produccion m_Produccion;
-	private Variedad m_Variedad;
 	private Presentación m_Presentacion;
 
         // CONSTRUCTOR
@@ -123,5 +114,14 @@ public class Producto {
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
+
+    public String getCodigo_variedad() {
+        return codigo_variedad;
+    }
+
+    public void setCodigo_variedad(String codigo_variedad) {
+        this.codigo_variedad = codigo_variedad;
+    }
+    
 
 }//end Producto
