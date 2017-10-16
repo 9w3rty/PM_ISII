@@ -97,7 +97,7 @@ public class SQL_Conexión {
             exito=true;
         }
         catch(SQLException e) {
-            System.out.println("Error updateQuery! " + e.getErrorCode());
+            System.out.println("Error updateQuery! " + e);
         }
         
         return exito;
