@@ -27,7 +27,7 @@ public class SQL_Conexión {
     private final String url = "jdbc:postgresql://localhost/PM_ISII";
     private final String user = "postgres"; // Aquí el usuario de la BD
     // private final String password = "postgres"; // Aquí el password de la BD 
-    private final String password = "joselol123";
+    private final String password = "postgres";
     private Connection conn;    
     
     // Instancia única por el Singleton
