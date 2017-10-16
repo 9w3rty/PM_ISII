@@ -701,14 +701,9 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <Component id="jScrollPane4" min="-2" pref="460" max="-2" attributes="0"/>
-                                              <EmptySpace pref="177" max="32767" attributes="0"/>
-                                              <Component id="jScrollPane5" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Component id="JTF_Filtro_Producto" linkSize="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="jScrollPane4" min="-2" pref="460" max="-2" attributes="0"/>
+                                      <EmptySpace pref="177" max="32767" attributes="0"/>
+                                      <Component id="jScrollPane5" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
@@ -719,7 +714,6 @@
                                               <Component id="JL_info_Venta2" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Component id="JL_info_Venta3" alignment="0" min="-2" pref="123" max="-2" attributes="0"/>
-                                          <Component id="JTF_Filtro_Cliente" linkSize="3" alignment="0" min="-2" pref="186" max="-2" attributes="0"/>
                                           <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="JB_Ventas_Finalizar" min="-2" max="-2" attributes="0"/>
@@ -728,6 +722,8 @@
                                               </Group>
                                               <Component id="jScrollPane6" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
+                                          <Component id="JTF_Filtro_Cliente" alignment="0" min="-2" pref="341" max="-2" attributes="0"/>
+                                          <Component id="JTF_Filtro_Producto" alignment="0" min="-2" pref="343" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="32767" attributes="0"/>
                                   </Group>
@@ -766,7 +762,7 @@
                                   <Component id="JB_Ventas_Finalizar" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="JTF_Ventas_Cancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="102" max="32767" attributes="0"/>
+                              <EmptySpace pref="110" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -799,9 +795,9 @@
                       </SubComponents>
                     </Container>
                     <Component class="javax.swing.JTextField" name="JTF_Filtro_Producto">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Refine su b&#xfa;squeda por nombre de Producto"/>
-                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JTF_Filtro_ProductoActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="JL_info_Venta2">
                       <Properties>
@@ -866,9 +862,6 @@
                       </SubComponents>
                     </Container>
                     <Component class="javax.swing.JTextField" name="JTF_Filtro_Cliente">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Refine su b&#xfa;squeda por nombre de Cliente"/>
-                      </Properties>
                     </Component>
                     <Component class="javax.swing.JButton" name="JB_Ventas_Finalizar">
                       <Properties>

@@ -45,10 +45,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         JP_info_Productos.revalidate();
         
         JTF_Nombre_Producto.requestFocus();
-        mostrarPlaceholder();
         
-        cargarTabla();
-        cargarTablaEliminar();
+        mostrarPlaceholder();
     }
     
     private void cargarTabla() {
@@ -75,6 +73,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         TextPrompt placeholder2 = new TextPrompt("Número de Lote", JTF_Producciones_NLote);
         placeholder2.changeAlpha(0.75f);
         placeholder2.changeStyle(Font.ITALIC);
+        
+        TextPrompt placeholder_1 = new TextPrompt("Refine su búsqueda por nombre de Producto", JTF_Filtro_Producto);
+        placeholder_1.changeAlpha(0.75f);
+        placeholder_1.changeStyle(Font.ITALIC);
+        
+        TextPrompt placeholder_2 = new TextPrompt("Refine su búsqueda por nombre de Cliente", JTF_Filtro_Cliente);
+        placeholder_2.changeAlpha(0.75f);
+        placeholder_2.changeStyle(Font.ITALIC);
     }
 
     /**
@@ -551,7 +557,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         ));
         jScrollPane4.setViewportView(JT_Ventas_Productos);
 
-        JTF_Filtro_Producto.setText("Refine su búsqueda por nombre de Producto");
+        JTF_Filtro_Producto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JTF_Filtro_ProductoActionPerformed(evt);
+            }
+        });
 
         JL_info_Venta2.setText("Carrito:");
 
@@ -587,8 +597,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         ));
         jScrollPane6.setViewportView(JT_Ventas_Clientes);
 
-        JTF_Filtro_Cliente.setText("Refine su búsqueda por nombre de Cliente");
-
         JB_Ventas_Finalizar.setText("Finalizar Venta");
         JB_Ventas_Finalizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
@@ -609,12 +617,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(JP_Comenzar_VentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(JP_Comenzar_VentaLayout.createSequentialGroup()
-                        .addGroup(JP_Comenzar_VentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(JP_Comenzar_VentaLayout.createSequentialGroup()
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
-                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(JTF_Filtro_Producto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(93, 93, 93))
                     .addGroup(JP_Comenzar_VentaLayout.createSequentialGroup()
                         .addGroup(JP_Comenzar_VentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -623,18 +628,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
                                 .addGap(375, 375, 375)
                                 .addComponent(JL_info_Venta2))
                             .addComponent(JL_info_Venta3, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(JTF_Filtro_Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(JP_Comenzar_VentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, JP_Comenzar_VentaLayout.createSequentialGroup()
                                     .addComponent(JB_Ventas_Finalizar)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(JTF_Ventas_Cancelar))
-                                .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(JTF_Filtro_Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(JTF_Filtro_Producto, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
-
-        JP_Comenzar_VentaLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {JTF_Filtro_Cliente, JTF_Filtro_Producto});
-
         JP_Comenzar_VentaLayout.setVerticalGroup(
             JP_Comenzar_VentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JP_Comenzar_VentaLayout.createSequentialGroup()
@@ -662,7 +665,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addGroup(JP_Comenzar_VentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JB_Ventas_Finalizar)
                     .addComponent(JTF_Ventas_Cancelar))
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addContainerGap(110, Short.MAX_VALUE))
         );
 
         JP_info_Ventas.add(JP_Comenzar_Venta, "card7");
@@ -836,7 +839,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 Datos[1]=rs.getString(2);
                 
                 modelo.addRow(Datos);
-                
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
@@ -850,6 +853,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         JP_info_Productos.repaint();
         JP_info_Productos.revalidate();
        
+        cargarTabla();
     }//GEN-LAST:event_JB_Cambiar_ProductoActionPerformed
 
     private void cargarTablaEliminar() {
@@ -1033,6 +1037,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_JB_Producciones_Aceptar_BusquedaActionPerformed
+
+    private void JTF_Filtro_ProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTF_Filtro_ProductoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JTF_Filtro_ProductoActionPerformed
  public void construir_tabla(ResultSet sr){
             modelo= new DefaultTableModel();
             modelo.addColumn("Fecha de Elaboración");
