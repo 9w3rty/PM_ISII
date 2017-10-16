@@ -5,17 +5,27 @@
  */
 package Vista;
 
+import Conexión.SQL_Conexión;
 import Controlador.Gestor_Producción;
 import Controlador.Gestor_Producto;
 import Modelo.Producto;
+import java.awt.Font;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author josek
  */
+
 public class MenuPrincipal extends javax.swing.JFrame {
 
+    private String codActualSeleccionado="";
+    private String nomActualSeleccionado="";
     /**
      * Creates new form MenuPrincipal
      */
@@ -26,6 +36,34 @@ public class MenuPrincipal extends javax.swing.JFrame {
         JP_info_Productos.add(JP_Alta_Producto);
         JP_info_Productos.repaint();
         JP_info_Productos.revalidate();
+        
+        JTF_Nombre_Producto.requestFocus();
+        mostrarPlaceholder();
+        
+        cargarTabla();
+        cargarTablaEliminar();
+    }
+    
+    private void cargarTabla() {
+        // Muestra la tabla de productos
+        DefaultTableModel modelo = new DefaultTableModel();        
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Código");
+        
+        JTB_Productos.setModel(modelo);
+        
+        cargarProductosEnTabla(modelo);
+    }
+    
+    private void mostrarPlaceholder() {
+        //Texto de ayuda para rellenar los campos
+        TextPrompt placeholder = new TextPrompt("Nombre del Producto", JTF_Nombre_Producto);
+        placeholder.changeAlpha(0.75f);
+        placeholder.changeStyle(Font.ITALIC);
+        
+        TextPrompt placeholder1 = new TextPrompt("Código del Producto", JTF_Codigo_Producto);
+        placeholder1.changeAlpha(0.75f);
+        placeholder1.changeStyle(Font.ITALIC);
         
     }
 
@@ -56,14 +94,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         JTF_NNombre_Producto = new javax.swing.JTextField();
         JTF_NCodigo_Producto = new javax.swing.JTextField();
         JB_Aceptar_CambiarProducto = new javax.swing.JButton();
-        JB_Cancelar_CambiarProducto = new javax.swing.JButton();
+        JB_Limpiar_CambiarProducto = new javax.swing.JButton();
         LF_Info_CambiarProducto2 = new javax.swing.JLabel();
         JP_Baja_Producto = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         JTB_Productos1 = new javax.swing.JTable();
         JL_Info_Baja = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        JB_Eliminar = new javax.swing.JButton();
+        JB_Cancelar_Eliminar = new javax.swing.JButton();
         JP_Alta_Producto = new javax.swing.JPanel();
         JL_Nombre_Producto = new javax.swing.JLabel();
         JL_Codigo_Producto = new javax.swing.JLabel();
@@ -177,7 +215,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(JB_Cambiar_Producto)
                 .addGap(67, 67, 67)
                 .addComponent(JB_Baja_Producto)
-                .addContainerGap(529, Short.MAX_VALUE))
+                .addContainerGap(492, Short.MAX_VALUE))
         );
 
         JP_Productos.add(JP_botones_Productos, java.awt.BorderLayout.LINE_START);
@@ -196,6 +234,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
             }
         ));
+        JTB_Productos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JTB_ProductosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(JTB_Productos);
 
         JL_Info_en_cambiar.setText("Los campos dejados en blanco serán rellenados automáticamente.");
@@ -206,9 +249,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         JB_Aceptar_CambiarProducto.setText("Aceptar");
         JB_Aceptar_CambiarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        JB_Aceptar_CambiarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JB_Aceptar_CambiarProductoActionPerformed(evt);
+            }
+        });
 
-        JB_Cancelar_CambiarProducto.setText("Cancelar");
-        JB_Cancelar_CambiarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        JB_Limpiar_CambiarProducto.setText("Limpiar");
+        JB_Limpiar_CambiarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        JB_Limpiar_CambiarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JB_Limpiar_CambiarProductoActionPerformed(evt);
+            }
+        });
 
         LF_Info_CambiarProducto2.setText("Seleccione un Producto para realizarle una modificación:");
 
@@ -230,7 +283,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                     .addGroup(JP_Cambiar_ProductoLayout.createSequentialGroup()
                         .addComponent(JB_Aceptar_CambiarProducto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(JB_Cancelar_CambiarProducto))
+                        .addComponent(JB_Limpiar_CambiarProducto))
                     .addComponent(JTF_NNombre_Producto, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JTF_NCodigo_Producto, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(289, 289, 289))
@@ -265,8 +318,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addGap(38, 38, 38)
                 .addGroup(JP_Cambiar_ProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JB_Aceptar_CambiarProducto)
-                    .addComponent(JB_Cancelar_CambiarProducto))
-                .addContainerGap(171, Short.MAX_VALUE))
+                    .addComponent(JB_Limpiar_CambiarProducto))
+                .addContainerGap(138, Short.MAX_VALUE))
         );
 
         JP_info_Productos.add(JP_Cambiar_Producto, "card4");
@@ -282,15 +335,25 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
             }
         ));
+        JTB_Productos1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JTB_Productos1MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(JTB_Productos1);
 
         JL_Info_Baja.setText("Seleccine un Producto para eliminarlo:");
 
-        jButton1.setText("Aceptar");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        JB_Eliminar.setText("Eliminar");
+        JB_Eliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        JB_Eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JB_EliminarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Cancelar");
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        JB_Cancelar_Eliminar.setText("Cancelar");
+        JB_Cancelar_Eliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout JP_Baja_ProductoLayout = new javax.swing.GroupLayout(JP_Baja_Producto);
         JP_Baja_Producto.setLayout(JP_Baja_ProductoLayout);
@@ -298,9 +361,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
             JP_Baja_ProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JP_Baja_ProductoLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(JB_Eliminar)
                 .addGap(87, 87, 87)
-                .addComponent(jButton2)
+                .addComponent(JB_Cancelar_Eliminar)
                 .addGap(246, 246, 246))
             .addGroup(JP_Baja_ProductoLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
@@ -318,10 +381,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(JL_Info_Baja)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 241, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 202, Short.MAX_VALUE)
                 .addGroup(JP_Baja_ProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(JB_Eliminar)
+                    .addComponent(JB_Cancelar_Eliminar))
                 .addGap(86, 86, 86))
         );
 
@@ -377,7 +440,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addGroup(JP_Alta_ProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JL_Codigo_Producto)
                     .addComponent(JTF_Codigo_Producto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 502, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 465, Short.MAX_VALUE)
                 .addGroup(JP_Alta_ProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JB_Aceptar_NuevoProducto)
                     .addComponent(JB_Cancelar_NuevoProdu))
@@ -398,7 +461,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         );
         JP_MateriaPrimaLayout.setVerticalGroup(
             JP_MateriaPrimaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 765, Short.MAX_VALUE)
+            .addGap(0, 722, Short.MAX_VALUE)
         );
 
         JTB_Menu.addTab("Materia Prima", JP_MateriaPrima);
@@ -411,7 +474,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         );
         JP_VariedadesLayout.setVerticalGroup(
             JP_VariedadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 765, Short.MAX_VALUE)
+            .addGap(0, 722, Short.MAX_VALUE)
         );
 
         JTB_Menu.addTab("Variedades", JP_Variedades);
@@ -424,7 +487,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         );
         JP_ProveedoresLayout.setVerticalGroup(
             JP_ProveedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 765, Short.MAX_VALUE)
+            .addGap(0, 722, Short.MAX_VALUE)
         );
 
         JTB_Menu.addTab("Proveedores", JP_Proveedores);
@@ -457,7 +520,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addGroup(JP_botones_VentasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(JB_Ventas_ComenzarVenta)
-                .addContainerGap(723, Short.MAX_VALUE))
+                .addContainerGap(684, Short.MAX_VALUE))
         );
 
         JP_Ventas.add(JP_botones_Ventas, java.awt.BorderLayout.LINE_START);
@@ -591,7 +654,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addGroup(JP_Comenzar_VentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JB_Ventas_Finalizar)
                     .addComponent(JTF_Ventas_Cancelar))
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
 
         JP_info_Ventas.add(JP_Comenzar_Venta, "card7");
@@ -628,7 +691,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addGroup(JP_botones_ProduccionesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(JB_Buscar_Producciones)
-                .addContainerGap(723, Short.MAX_VALUE))
+                .addContainerGap(684, Short.MAX_VALUE))
         );
 
         JP_Producciones.add(JP_botones_Producciones, java.awt.BorderLayout.LINE_START);
@@ -733,7 +796,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(JB_Producciones_Aceptar_Busqueda)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(164, Short.MAX_VALUE))
+                .addContainerGap(133, Short.MAX_VALUE))
         );
 
         JP_info_Producciones.add(JP_Buscar_Producción, "card2");
@@ -758,7 +821,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(JTB_Menu)
+            .addComponent(JTB_Menu, javax.swing.GroupLayout.DEFAULT_SIZE, 747, Short.MAX_VALUE)
         );
 
         pack();
@@ -772,20 +835,50 @@ public class MenuPrincipal extends javax.swing.JFrame {
         JP_info_Productos.revalidate();
     }//GEN-LAST:event_JB_Alta_ProductoActionPerformed
 
+    public static void cargarProductosEnTabla(DefaultTableModel modelo) {
+        ResultSet rs = Gestor_Producto.getProductos();
+        String []Datos = new String [2];
+        
+        try {
+            while ( rs.next() ) {
+                Datos[0]=rs.getString(1);
+                Datos[1]=rs.getString(2);
+                
+                modelo.addRow(Datos);
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     private void JB_Cambiar_ProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_Cambiar_ProductoActionPerformed
         // TODO add your handling code here:
         JP_info_Productos.removeAll();
         JP_info_Productos.add(JP_Cambiar_Producto);
         JP_info_Productos.repaint();
         JP_info_Productos.revalidate();
+       
     }//GEN-LAST:event_JB_Cambiar_ProductoActionPerformed
 
+    private void cargarTablaEliminar() {
+        DefaultTableModel modelo = new DefaultTableModel();        
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Código");
+        
+        JTB_Productos1.setModel(modelo);
+        
+        cargarProductosEnTabla(modelo);
+    }
+    
     private void JB_Baja_ProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_Baja_ProductoActionPerformed
         // TODO add your handling code here:
         JP_info_Productos.removeAll();
         JP_info_Productos.add(JP_Baja_Producto);
         JP_info_Productos.repaint();
-        JP_info_Productos.revalidate();        
+        JP_info_Productos.revalidate(); 
+        
+        cargarTablaEliminar();
     }//GEN-LAST:event_JB_Baja_ProductoActionPerformed
 
     private void JRB_Buscar_Produccion_LoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRB_Buscar_Produccion_LoteActionPerformed
@@ -839,7 +932,98 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void JB_Cancelar_NuevoProduActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_Cancelar_NuevoProduActionPerformed
         // TODO add your handling code here:
         resetCampos();
+        JTF_Nombre_Producto.requestFocus();
     }//GEN-LAST:event_JB_Cancelar_NuevoProduActionPerformed
+
+    private void JTB_ProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTB_ProductosMouseClicked
+        // TODO add your handling code here:
+        int row = JTB_Productos.rowAtPoint(evt.getPoint());
+        
+        String codigo="";
+        String nombre="";
+        
+        // SI HAY AL MENOS UNA FILA SELECCIONADA
+        if (row >= 0)
+        {
+            nombre=JTB_Productos.getValueAt(row, 0).toString();
+            codigo=JTB_Productos.getValueAt(row, 1).toString();
+        }
+ 
+        JTF_NNombre_Producto.setText(nombre);
+        JTF_NCodigo_Producto.setText(codigo);
+        
+        codActualSeleccionado = codigo;
+    }//GEN-LAST:event_JTB_ProductosMouseClicked
+
+    private void resetCamposModificar() {
+        JTF_NNombre_Producto.setText("");
+        JTF_NCodigo_Producto.setText("");
+    }
+    
+    private void JB_Limpiar_CambiarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_Limpiar_CambiarProductoActionPerformed
+        // TODO add your handling code here:
+        resetCamposModificar();
+    }//GEN-LAST:event_JB_Limpiar_CambiarProductoActionPerformed
+
+    private void JB_Aceptar_CambiarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_Aceptar_CambiarProductoActionPerformed
+        // TODO add your handling code here:
+        
+        Producto nuevoProducto = new Producto();
+        
+        nuevoProducto.setCodigo( JTF_NCodigo_Producto.getText() );
+        nuevoProducto.setNombre( JTF_NCodigo_Producto.getText() );
+        
+        boolean exito = Gestor_Producto.actualizarProducto(codActualSeleccionado, nuevoProducto);
+        
+        if (exito) {
+            String datos= "Código: " + JTF_NCodigo_Producto.getText() + "\nNombre: " + JTF_NCodigo_Producto.getText();
+            
+            // Mostramos el éxito de la operación
+            JOptionPane.showMessageDialog(null, "Actualización exitosa del nuevo producto: \n\n" + datos +"\n" );
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "No se puede actualizar, codigo de producto incorrecto" );
+        }
+        
+        cargarTabla();
+    }//GEN-LAST:event_JB_Aceptar_CambiarProductoActionPerformed
+
+    private void JTB_Productos1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTB_Productos1MouseClicked
+        // TODO add your handling code here:
+        int row = JTB_Productos1.rowAtPoint(evt.getPoint());
+        
+        // SI HAY AL MENOS UNA FILA SELECCIONADA
+        if (row >= 0)
+        {
+            nomActualSeleccionado=JTB_Productos1.getValueAt(row, 0).toString();
+            codActualSeleccionado=JTB_Productos1.getValueAt(row, 1).toString();
+        }
+    }//GEN-LAST:event_JTB_Productos1MouseClicked
+
+    private void JB_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_EliminarActionPerformed
+        // TODO add your handling code here:
+        
+        String cartel = "Desea eliminar el siguiente producto?\n\n";
+               cartel += "Nombre: " + codActualSeleccionado + "\n";
+               cartel += "Código: " + nomActualSeleccionado + "\n\n";
+        
+        int n = JOptionPane.showConfirmDialog (
+            null,
+            cartel,"Confirmar eliminación",
+            JOptionPane.YES_NO_OPTION);
+
+        if(n == JOptionPane.YES_OPTION){
+            // Eliminar producto
+            if (Gestor_Producto.bajaProducto(codActualSeleccionado)) {
+                JOptionPane.showMessageDialog(null, "El producto con código: "+ codActualSeleccionado +" \nfue dado de baja exitosamente\n\n");
+            }
+            
+            cargarTablaEliminar();
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "No se ha eliminado el producto\n\n");
+        }
+    }//GEN-LAST:event_JB_EliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -884,8 +1068,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton JB_Baja_Producto;
     private javax.swing.JButton JB_Buscar_Producciones;
     private javax.swing.JButton JB_Cambiar_Producto;
-    private javax.swing.JButton JB_Cancelar_CambiarProducto;
+    private javax.swing.JButton JB_Cancelar_Eliminar;
     private javax.swing.JButton JB_Cancelar_NuevoProdu;
+    private javax.swing.JButton JB_Eliminar;
+    private javax.swing.JButton JB_Limpiar_CambiarProducto;
     private javax.swing.JButton JB_Producciones_Aceptar_Busqueda;
     private javax.swing.JButton JB_Ventas_ComenzarVenta;
     private javax.swing.JButton JB_Ventas_Finalizar;
@@ -933,8 +1119,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JTable JT_Ventas_Clientes;
     private javax.swing.JTable JT_Ventas_Productos;
     private javax.swing.JLabel LF_Info_CambiarProducto2;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
