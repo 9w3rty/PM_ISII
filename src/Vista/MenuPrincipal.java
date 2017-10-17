@@ -17,6 +17,10 @@ import java.awt.Font;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -35,6 +39,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private ArrayList codigos=new ArrayList();
     private int filaSeleccionada=-1;
     private int clienteSeleccionado=-1;
+    private int contFilasSeleccionadas=0;
+    
+    private float subTotalAnt=0;
+    private float sumar=0;
     
     FFecha ffecha = new FFecha();
     String auxF,auxL;
@@ -68,10 +76,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void cargarTablaVentasAcumulado_Venta() {
         modeloVentaAcumulado = new DefaultTableModel();
         
+        modeloVentaAcumulado.addColumn("Código");
         modeloVentaAcumulado.addColumn("Nombre");
         modeloVentaAcumulado.addColumn("Precio");
         modeloVentaAcumulado.addColumn("Cantidad");
         modeloVentaAcumulado.addColumn("Subtotal");
+        
         
         JT_Ventas_Acumulado.setModel( modeloVentaAcumulado );
     }
@@ -658,6 +668,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 JT_Ventas_AcumuladoMouseClicked(evt);
             }
         });
+        JT_Ventas_Acumulado.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                JT_Ventas_AcumuladoPropertyChange(evt);
+            }
+        });
         JT_Ventas_Acumulado.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 JT_Ventas_AcumuladoKeyPressed(evt);
@@ -1006,8 +1021,30 @@ public class MenuPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_JTF_Producciones_NLoteActionPerformed
 
+    private void actualizarJLabelTotal(float total) {
+        String str = "";
+        
+        str = String.format("Total: $ %.2f", total);
+        
+        JL_SignoARS.setText(str);
+    }
+    
     private void JB_Ventas_ComenzarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_Ventas_ComenzarVentaActionPerformed
         // TODO add your handling code here:
+        clienteSeleccionado=-1;
+        contFilasSeleccionadas=0;
+        
+        cargarTablaProductos_Venta();
+        cargarTablaClientes_Venta();
+        cargarTablaVentasAcumulado_Venta();
+        
+        codigos=new ArrayList();
+        
+        totalPagar = 0;
+        
+        actualizarJLabelTotal(totalPagar);
+        
+        
     }//GEN-LAST:event_JB_Ventas_ComenzarVentaActionPerformed
 
     private void resetCampos() {
@@ -1171,7 +1208,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     
     private void JT_Ventas_ProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JT_Ventas_ProductosMouseClicked
         // TODO add your handling code here:
-        
+        contFilasSeleccionadas++;
         int row = JT_Ventas_Productos.rowAtPoint(evt.getPoint());
         
         String nombre="";
@@ -1196,7 +1233,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 
                 codigos.add(codProd);
                 
-                String []Datos = new String [4];
+                String []Datos = new String [5];
         
                 // Setear variables
                 precio = Gestor_Producto.getPrecio(codProd);
@@ -1206,17 +1243,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 totalPagar+=subt;
 
                 // Cargarlos en la jTable        
-                Datos[0] = nombre;
-                Datos[1] = precioStr;
-                Datos[2] = Integer.toString(cant);
-                Datos[3] = Float.toString(subt);
+                Datos[0] = codProd;
+                Datos[1] = nombre;
+                Datos[2] = precioStr;
+                Datos[3] = Integer.toString(cant);
+                Datos[4] = Float.toString(subt);
 
                 modeloVentaAcumulado.addRow(Datos);
             }
             
         }
         
-        JL_SignoARS.setText( "Total: $ " + totalPagar );
+        actualizarJLabelTotal(totalPagar);
         
     }//GEN-LAST:event_JT_Ventas_ProductosMouseClicked
 
@@ -1225,6 +1263,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         
         filaSeleccionada = JT_Ventas_Productos.rowAtPoint(evt.getPoint());
         
+        float precio=0;
+        int cantidad=0;
+        
+        precio = Float.parseFloat(JT_Ventas_Acumulado.getValueAt(filaSeleccionada, 2 ).toString());
+        cantidad = Integer.parseInt( JT_Ventas_Acumulado.getValueAt(filaSeleccionada, 3).toString() );
+        
+        subTotalAnt = precio * cantidad;
+        sumar = totalPagar;
     }//GEN-LAST:event_JT_Ventas_AcumuladoMouseClicked
 
     private void JTF_Ventas_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTF_Ventas_CancelarActionPerformed
@@ -1243,7 +1289,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         if ( evt.getKeyCode() == KeyEvent.VK_ENTER && filaSeleccionada>=0 ) {
-            
+            System.out.println("PRESIONASTE ENTER!!");
         }
         
     }//GEN-LAST:event_JT_Ventas_AcumuladoKeyPressed
@@ -1251,8 +1297,29 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void JB_Quitar_ProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_Quitar_ProductoActionPerformed
         // TODO add your handling code here:
         
-        if (filaSeleccionada>=0) {
+        if (filaSeleccionada>=0 && contFilasSeleccionadas>0) {
+            
+            float precio = 0;
+            int cantidad = 0;
+            String codigo = "";
+            
+            codigo = JT_Ventas_Acumulado.getValueAt(filaSeleccionada, 0).toString();
+            
+            System.out.println("cod: "+codigo);
+            
+            precio = Float.parseFloat(JT_Ventas_Acumulado.getValueAt(filaSeleccionada, 2).toString()) ;
+            cantidad = Integer.parseInt( JT_Ventas_Acumulado.getValueAt(filaSeleccionada, 3).toString() );
+            
+            totalPagar -= ( (float) precio * cantidad);
+            
+            actualizarJLabelTotal(totalPagar);
+            
             modeloVentaAcumulado.removeRow(filaSeleccionada);
+            contFilasSeleccionadas--;
+            
+            codigos.remove(codigo);
+            
+            filaSeleccionada = -1;
         }
     }//GEN-LAST:event_JB_Quitar_ProductoActionPerformed
 
@@ -1266,15 +1333,33 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void JB_Ventas_FinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_Ventas_FinalizarActionPerformed
         // TODO add your handling code here:
         
+        String fecha = "";
+        Calendar c1 = new GregorianCalendar();
+        
+        String dia, mes, annio;
+        
+        dia = Integer.toString(c1.get(Calendar.DATE));
+        mes = Integer.toString(c1.get(Calendar.MONTH));
+        annio = Integer.toString(c1.get(Calendar.YEAR));
+        
+        fecha = annio + "-" + mes + "-" + dia;
+        
         String nombre="";
         float importe=0;
         
-        if (clienteSeleccionado>=0 && totalPagar>0) {
-            nombre=JT_Ventas_Clientes.getValueAt(clienteSeleccionado, 1).toString();
+        if (totalPagar>0) {
             importe=totalPagar;
+            // Cliente seleccionado
+            if ( clienteSeleccionado>=0 ) {
+                nombre=JT_Ventas_Clientes.getValueAt(clienteSeleccionado, 1).toString();
+            }
+            // Anónimo
+            else {
+                nombre="Anónimo";
+            }
             
             //REGISTRAR LA VENTA EN LA BD
-            boolean exito=Gestor_Venta.registrarVenta(nombre, importe);
+            boolean exito=Gestor_Venta.registrarVenta(nombre, importe, fecha);
             
             if (exito) {
                 JOptionPane.showMessageDialog(null, "Venta registrada exitosamente para el cliente:\n\n" + nombre +"\n" );
@@ -1285,6 +1370,59 @@ public class MenuPrincipal extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_JB_Ventas_FinalizarActionPerformed
+
+    private void actualizarModelo( DefaultTableModel modelo ) {        
+        float precio=0;
+        int cant=0;
+        float subt=0;
+        
+        if (contFilasSeleccionadas > 0 && filaSeleccionada>=0) {
+
+            precio = Float.parseFloat(JT_Ventas_Acumulado.getValueAt(filaSeleccionada, 2 ).toString());
+            cant = Integer.parseInt( JT_Ventas_Acumulado.getValueAt(filaSeleccionada, 3).toString() );
+
+            subt = precio * cant;
+
+            JT_Ventas_Acumulado.setValueAt(String.valueOf(subt), filaSeleccionada, 4);
+            
+            // Actualiza el total
+            
+            int i, j;
+            String []datos = new String[5];
+            
+            float total = 0;
+            
+            for ( i=0; i<modeloVentaAcumulado.getRowCount();i++ ) {
+                datos[0] = modeloVentaAcumulado.getValueAt(i, 0 ).toString();
+                datos[1] = modeloVentaAcumulado.getValueAt(i, 1 ).toString();
+                datos[2] = modeloVentaAcumulado.getValueAt(i, 2 ).toString();
+                datos[3] = modeloVentaAcumulado.getValueAt(i, 3 ).toString();
+                datos[4] = modeloVentaAcumulado.getValueAt(i, 4 ).toString();
+                
+                total+=Float.parseFloat( datos[4] );
+            }
+            
+            totalPagar = total;
+            
+            /*
+            totalPagar -= subTotalAnt;
+            totalPagar += subt;
+            */
+            actualizarJLabelTotal(totalPagar);
+            
+            // Reset variables globales
+            subTotalAnt=0;
+            
+        }
+    }
+    
+    private void JT_Ventas_AcumuladoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_JT_Ventas_AcumuladoPropertyChange
+        // TODO add your handling code here:
+        
+        // ACTUALIZAR TODA LA TABLA
+        actualizarModelo(modeloVentaAcumulado);
+        
+    }//GEN-LAST:event_JT_Ventas_AcumuladoPropertyChange
  public void construir_tabla(ResultSet sr){
             modelo= new DefaultTableModel();
             modelo.addColumn("Fecha de Elaboración");

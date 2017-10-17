@@ -34,11 +34,11 @@ public class Main {
         
         Gestor_Producto.actualizarProducto("RAV001", nProd);
         */
-        /*
+        
         MenuPrincipal mp = new MenuPrincipal();
         mp.setExtendedState(mp.MAXIMIZED_BOTH);
         mp.setVisible(true);
-        */
+        
         
         //System.out.println( Gestor_Producto.getStock("RAV001"));
         //System.out.println( Gestor_Producto.restarStockProducto(7, "RAV001"));
