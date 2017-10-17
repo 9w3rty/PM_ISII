@@ -5,11 +5,8 @@
  */
 package Ejecuciones;
 
-import Conexión.SQL_Conexión;
 import Controlador.Gestor_Producto;
-import Modelo.Producto;
 import Vista.MenuPrincipal;
-import Vista.Principal;
 
 /**
  *
@@ -26,7 +23,7 @@ public class Main {
         Producto prod = new Producto();
         prod.setNombre("Ravioles");
         prod.setCodigo("RAV001");
-                
+
         Gestor_Producto.altaProducto(prod);
         //Gestor_Producto.bajaProducto("RAV001");
         */
@@ -37,10 +34,14 @@ public class Main {
         
         Gestor_Producto.actualizarProducto("RAV001", nProd);
         */
-        
+        /*
         MenuPrincipal mp = new MenuPrincipal();
         mp.setExtendedState(mp.MAXIMIZED_BOTH);
         mp.setVisible(true);
+        */
+        
+        //System.out.println( Gestor_Producto.getStock("RAV001"));
+        //System.out.println( Gestor_Producto.restarStockProducto(7, "RAV001"));
     }
     
 }

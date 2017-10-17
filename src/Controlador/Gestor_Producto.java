@@ -7,6 +7,9 @@ package Controlador;
 import Conexión.SQL_Conexión;
 import Modelo.Producto;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -38,9 +41,65 @@ public class Gestor_Producto {
     
     public static ResultSet getProductos() {
         SQL_Conexión.getInstance().connect();
-        ResultSet rs=SQL_Conexión.getInstance().executeQuery("SELECT * FROM producto");
+        
+        ResultSet rs = SQL_Conexión.getInstance().executeQuery("SELECT * FROM producto");
         
         return rs;
+    }
+    
+    public static float getPrecio(String codProducto) {
+        SQL_Conexión.getInstance().connect();
+        String query = "SELECT precio FROM produ_v WHERE cod_p='"+codProducto+"'";
+        
+        ResultSet rs = SQL_Conexión.getInstance().executeQuery(query);
+        
+        String precioStr="-1.0";
+        
+        try {
+            while ( rs.next() ) {
+                precioStr = rs.getString("precio");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Gestor_Producto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return Float.parseFloat(precioStr);
+    }
+    
+    public static int getStock(String codProducto) {
+        SQL_Conexión.getInstance().connect();
+        String query = "SELECT cant_stock FROM stockproductos WHERE cod_p='"+codProducto+"'";
+        
+        ResultSet rs = SQL_Conexión.getInstance().executeQuery(query);
+        
+        String cantStr="0";
+        
+        try {
+            while ( rs.next() ) {
+                cantStr = rs.getString("cant_stock");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Gestor_Producto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return Integer.parseInt(cantStr);
+    }
+    
+    public static boolean restarStockProducto(int cantRestar, String codProducto) {
+        int stockActual = 0;
+        
+        SQL_Conexión.getInstance().connect();
+        stockActual = getStock(codProducto);
+        
+        // Hay Stock
+        if ( stockActual > 0 ) {
+            stockActual -= cantRestar;
+        }
+        
+        //Actualizacion en la BD
+        String query = " UPDATE stockproductos SET cant_stock="+stockActual+" WHERE cod_p='"+codProducto+"' ";
+        
+        return SQL_Conexión.getInstance().updateQuery(query);
     }
     
     public void consultar_nombre() {}
