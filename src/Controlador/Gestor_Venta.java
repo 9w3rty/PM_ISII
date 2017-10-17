@@ -12,14 +12,11 @@ import Conexión.SQL_Conexión;
  * @author josek
  */
 public class Gestor_Venta {
-    public static int idVenta=0;
     
-    public static boolean registrarVenta(String nombre, float total) {
+    public static boolean registrarVenta(String nombre, float total, String fecha) {
         
         SQL_Conexión.getInstance().connect();
-        String query = "INSERT INTO venta VALUES ( "+total+", " + idVenta + ", '" + nombre + "' )";
-        
-        idVenta++;
+        String query = "INSERT INTO venta (imp_total, n_c, fecha) VALUES ( "+total+", '" + nombre + "', '"+fecha+"' )";
         
         return SQL_Conexión.getInstance().updateQuery(query);
     }
