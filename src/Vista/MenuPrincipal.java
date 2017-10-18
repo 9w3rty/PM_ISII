@@ -250,7 +250,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1366, 768));
         setSize(new java.awt.Dimension(1366, 768));
 
         JTB_Menu.setBackground(new java.awt.Color(245, 250, 166));
@@ -374,7 +373,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        JB_Limpiar_CambiarProducto.setText("Limpiar");
+        JB_Limpiar_CambiarProducto.setText("Cancelar");
         JB_Limpiar_CambiarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         JB_Limpiar_CambiarProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -701,6 +700,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         JL_info_Venta2.setText("Carrito:");
 
+        JT_Ventas_Acumulado = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                if (colIndex==3) return true;
+                return false;
+            }
+        };
         JT_Ventas_Acumulado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -994,7 +999,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(JTB_Menu, javax.swing.GroupLayout.DEFAULT_SIZE, 1366, Short.MAX_VALUE)
+            .addComponent(JTB_Menu)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1233,7 +1238,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 }
 
                 if (contCambios==0) {
-                    JOptionPane.showMessageDialog(rootPane, "Se encontraron los siguiente campos repetidos:\n\n" + repetidos + "\n");
+                    //JOptionPane.showMessageDialog(rootPane, "Se encontraron los siguiente campos repetidos:\n\n" + repetidos + "\n");
+                    JOptionPane.showMessageDialog(rootPane, "No se han registrado cambios\n");
                 }
                 else {
                     Producto nuevoProducto = new Producto();

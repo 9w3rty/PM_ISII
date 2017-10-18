@@ -329,7 +329,7 @@
                     </Component>
                     <Component class="javax.swing.JButton" name="JB_Limpiar_CambiarProducto">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Limpiar"/>
+                        <Property name="text" type="java.lang.String" value="Cancelar"/>
                         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                           <Color id="Cursor de Mano"/>
                         </Property>
@@ -864,6 +864,9 @@
                             <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="JT_Ventas_AcumuladoPropertyChange"/>
                             <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="JT_Ventas_AcumuladoKeyPressed"/>
                           </Events>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JT_Ventas_Acumulado = new javax.swing.JTable(){&#xa;    public boolean isCellEditable(int rowIndex, int colIndex) {&#xa;        if (colIndex==3) return true;&#xa;        return false;&#xa;    }&#xa;};"/>
+                          </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>
