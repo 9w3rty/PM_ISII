@@ -76,6 +76,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         cargarTablaVentasAcumulado_Venta();
         
         JTF_Nombre_Producto.requestFocus();
+        //JTF_NCodigo_Producto.setEditable(false);
+        JTF_NCodigo_Producto.setEnabled(false);
     }
     
     private void cargarTablaVentasAcumulado_Venta() {
