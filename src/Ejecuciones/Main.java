@@ -39,7 +39,6 @@ public class Main {
         mp.setExtendedState(mp.MAXIMIZED_BOTH);
         mp.setVisible(true);
         
-        
         //System.out.println( Gestor_Producto.getStock("RAV001"));
         //System.out.println( Gestor_Producto.restarStockProducto(7, "RAV001"));
     }

@@ -44,6 +44,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private float subTotalAnt=0;
     private float sumar=0;
     
+    private String nomAnterior="";
+    private String codAnterior="";
+    private int filaSeleccionadaCambiar=-1;
+    
     FFecha ffecha = new FFecha();
     String auxF,auxL;
     ResultSet rs=null;
@@ -71,6 +75,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         cargarTablaClientes_Venta();
         cargarTablaVentasAcumulado_Venta();
         
+        JTF_Nombre_Producto.requestFocus();
     }
     
     private void cargarTablaVentasAcumulado_Venta() {
@@ -311,7 +316,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(JB_Cambiar_Producto)
                 .addGap(67, 67, 67)
                 .addComponent(JB_Baja_Producto)
-                .addContainerGap(492, Short.MAX_VALUE))
+                .addContainerGap(489, Short.MAX_VALUE))
         );
 
         JP_Productos.add(JP_botones_Productos, java.awt.BorderLayout.LINE_START);
@@ -319,6 +324,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         JP_info_Productos.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         JP_info_Productos.setLayout(new java.awt.CardLayout());
 
+        JTB_Productos = new javax.swing.JTable() {
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false; //Disallow the editing of any cell
+            }
+        };
         JTB_Productos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -342,6 +352,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
         JL_NNombre.setText("Ingrese el nuevo Nombre del Producto:");
 
         JL_NCodigo.setText("Ingrese el nuevo Código del Producto:");
+
+        JTF_NCodigo_Producto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JTF_NCodigo_ProductoActionPerformed(evt);
+            }
+        });
+        JTF_NCodigo_Producto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                JTF_NCodigo_ProductoKeyTyped(evt);
+            }
+        });
 
         JB_Aceptar_CambiarProducto.setText("Aceptar");
         JB_Aceptar_CambiarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -415,11 +436,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addGroup(JP_Cambiar_ProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JB_Aceptar_CambiarProducto)
                     .addComponent(JB_Limpiar_CambiarProducto))
-                .addContainerGap(138, Short.MAX_VALUE))
+                .addContainerGap(135, Short.MAX_VALUE))
         );
 
         JP_info_Productos.add(JP_Cambiar_Producto, "card4");
 
+        JTB_Productos1 = new javax.swing.JTable() {
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false; //Disallow the editing of any cell
+            }
+        };
         JTB_Productos1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -450,6 +476,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         JB_Cancelar_Eliminar.setText("Cancelar");
         JB_Cancelar_Eliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        JB_Cancelar_Eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JB_Cancelar_EliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout JP_Baja_ProductoLayout = new javax.swing.GroupLayout(JP_Baja_Producto);
         JP_Baja_Producto.setLayout(JP_Baja_ProductoLayout);
@@ -464,7 +495,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addGroup(JP_Baja_ProductoLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addGroup(JP_Baja_ProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1170, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1192, Short.MAX_VALUE)
                     .addGroup(JP_Baja_ProductoLayout.createSequentialGroup()
                         .addComponent(JL_Info_Baja)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -477,7 +508,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(JL_Info_Baja)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 202, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 199, Short.MAX_VALUE)
                 .addGroup(JP_Baja_ProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JB_Eliminar)
                     .addComponent(JB_Cancelar_Eliminar))
@@ -490,6 +521,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         JL_Codigo_Producto.setText("Ingrese el Código del Producto:");
 
+        JTF_Codigo_Producto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                JTF_Codigo_ProductoKeyTyped(evt);
+            }
+        });
+
         JB_Aceptar_NuevoProducto.setText("Aceptar");
         JB_Aceptar_NuevoProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         JB_Aceptar_NuevoProducto.addActionListener(new java.awt.event.ActionListener() {
@@ -498,7 +535,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        JB_Cancelar_NuevoProdu.setText("Reset");
+        JB_Cancelar_NuevoProdu.setText("Limpiar");
         JB_Cancelar_NuevoProdu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         JB_Cancelar_NuevoProdu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -523,7 +560,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                         .addComponent(JB_Cancelar_NuevoProdu))
                     .addComponent(JTF_Codigo_Producto)
                     .addComponent(JTF_Nombre_Producto))
-                .addContainerGap(569, Short.MAX_VALUE))
+                .addContainerGap(565, Short.MAX_VALUE))
         );
         JP_Alta_ProductoLayout.setVerticalGroup(
             JP_Alta_ProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -536,7 +573,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addGroup(JP_Alta_ProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JL_Codigo_Producto)
                     .addComponent(JTF_Codigo_Producto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 465, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 462, Short.MAX_VALUE)
                 .addGroup(JP_Alta_ProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JB_Aceptar_NuevoProducto)
                     .addComponent(JB_Cancelar_NuevoProdu))
@@ -557,7 +594,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         );
         JP_MateriaPrimaLayout.setVerticalGroup(
             JP_MateriaPrimaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 722, Short.MAX_VALUE)
+            .addGap(0, 719, Short.MAX_VALUE)
         );
 
         JTB_Menu.addTab("Materia Prima", JP_MateriaPrima);
@@ -570,7 +607,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         );
         JP_VariedadesLayout.setVerticalGroup(
             JP_VariedadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 722, Short.MAX_VALUE)
+            .addGap(0, 719, Short.MAX_VALUE)
         );
 
         JTB_Menu.addTab("Variedades", JP_Variedades);
@@ -583,11 +620,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
         );
         JP_ProveedoresLayout.setVerticalGroup(
             JP_ProveedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 722, Short.MAX_VALUE)
+            .addGap(0, 719, Short.MAX_VALUE)
         );
 
         JTB_Menu.addTab("Proveedores", JP_Proveedores);
 
+        JP_Ventas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JP_VentasMouseClicked(evt);
+            }
+        });
         JP_Ventas.setLayout(new java.awt.BorderLayout());
 
         JP_botones_Ventas.setBackground(new java.awt.Color(245, 249, 167));
@@ -609,14 +651,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addGroup(JP_botones_VentasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(JB_Ventas_ComenzarVenta)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         JP_botones_VentasLayout.setVerticalGroup(
             JP_botones_VentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JP_botones_VentasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(JB_Ventas_ComenzarVenta)
-                .addContainerGap(684, Short.MAX_VALUE))
+                .addContainerGap(681, Short.MAX_VALUE))
         );
 
         JP_Ventas.add(JP_botones_Ventas, java.awt.BorderLayout.LINE_START);
@@ -626,6 +668,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         JL_info_Venta1.setText("Seleccione un Producto para añadir al carrito:");
 
+        JT_Ventas_Productos = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false; //Disallow the editing of any cell
+            }
+        };
         JT_Ventas_Productos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -684,6 +731,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         JL_info_Venta3.setText("Selecionar Cliente:");
 
+        JT_Ventas_Clientes = new javax.swing.JTable() {
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false; //Disallow the editing of any cell
+            }
+        };
         JT_Ventas_Clientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -734,12 +786,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addGroup(JP_Comenzar_VentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(JP_Comenzar_VentaLayout.createSequentialGroup()
                         .addComponent(JTF_Filtro_Producto, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JP_Comenzar_VentaLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(JP_Comenzar_VentaLayout.createSequentialGroup()
                         .addGroup(JP_Comenzar_VentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(JP_Comenzar_VentaLayout.createSequentialGroup()
                                 .addGroup(JP_Comenzar_VentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(JTF_Filtro_Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(JP_Comenzar_VentaLayout.createSequentialGroup()
                                         .addComponent(JB_Ventas_Finalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(210, 210, 210)
@@ -747,7 +798,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
                                     .addGroup(JP_Comenzar_VentaLayout.createSequentialGroup()
                                         .addComponent(JL_info_Venta1)
                                         .addGap(375, 375, 375)
-                                        .addComponent(JL_info_Venta2)))
+                                        .addComponent(JL_info_Venta2))
+                                    .addComponent(JTF_Filtro_Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(JP_Comenzar_VentaLayout.createSequentialGroup()
                                 .addGroup(JP_Comenzar_VentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -794,7 +846,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addGroup(JP_Comenzar_VentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JB_Ventas_Finalizar)
                     .addComponent(JTF_Ventas_Cancelar))
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addContainerGap(105, Short.MAX_VALUE))
         );
 
         JP_info_Ventas.add(JP_Comenzar_Venta, "card7");
@@ -824,14 +876,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addGroup(JP_botones_ProduccionesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(JB_Buscar_Producciones)
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
         JP_botones_ProduccionesLayout.setVerticalGroup(
             JP_botones_ProduccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JP_botones_ProduccionesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(JB_Buscar_Producciones)
-                .addContainerGap(684, Short.MAX_VALUE))
+                .addContainerGap(681, Short.MAX_VALUE))
         );
 
         JP_Producciones.add(JP_botones_Producciones, java.awt.BorderLayout.LINE_START);
@@ -919,7 +971,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(JB_Producciones_Aceptar_Busqueda)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addContainerGap(130, Short.MAX_VALUE))
         );
 
         JP_info_Producciones.add(JP_Buscar_Producción, "card2");
@@ -940,11 +992,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(JTB_Menu)
+            .addComponent(JTB_Menu, javax.swing.GroupLayout.DEFAULT_SIZE, 1366, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(JTB_Menu)
+            .addComponent(JTB_Menu, javax.swing.GroupLayout.DEFAULT_SIZE, 747, Short.MAX_VALUE)
         );
 
         pack();
@@ -1029,8 +1081,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         JL_SignoARS.setText(str);
     }
     
-    private void JB_Ventas_ComenzarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_Ventas_ComenzarVentaActionPerformed
-        // TODO add your handling code here:
+    private void iniciarVenta() {
         clienteSeleccionado=-1;
         contFilasSeleccionadas=0;
         
@@ -1043,32 +1094,59 @@ public class MenuPrincipal extends javax.swing.JFrame {
         totalPagar = 0;
         
         actualizarJLabelTotal(totalPagar);
-        
-        
+    }
+    
+    private void JB_Ventas_ComenzarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_Ventas_ComenzarVentaActionPerformed
+        // TODO add your handling code here:
+        iniciarVenta();
     }//GEN-LAST:event_JB_Ventas_ComenzarVentaActionPerformed
 
     private void resetCampos() {
         JTF_Nombre_Producto.setText("");
         JTF_Codigo_Producto.setText("");
+        JTF_Nombre_Producto.requestFocus();
     }
     
     private void JB_Aceptar_NuevoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_Aceptar_NuevoProductoActionPerformed
         // TODO add your handling code here:
-        String nombre = JTF_Nombre_Producto.getText();
-        String cod = JTF_Codigo_Producto.getText();
         
-        Producto p = new Producto(nombre, cod);
+        String errorMessage="";
+        boolean camposCorrectos=false;
         
-        boolean exito = Gestor_Producto.altaProducto(p);
-        
-        if ( exito ) {
-            String datos= "Código: " + cod + "\nNombre: " + nombre;
-            
-            // Mostramos el éxito de la operación
-            JOptionPane.showMessageDialog(null, "Alta del nuevo producto exitosa: \n\n" + datos +"\n" );
+        if ( JTF_Nombre_Producto.getText().length() == 0 ) {
+            errorMessage+="Nombre\n";
         }
         
-        resetCampos();
+        if ( JTF_Codigo_Producto.getText().length() == 0 ) {
+            errorMessage+="Código\n";
+        }
+        
+        if ( errorMessage.length() == 0 ) {
+            camposCorrectos=true;
+        }
+        else {
+            errorMessage="Faltan ingresar los siguientes campos:\n\n" + errorMessage + "\n";
+            JOptionPane.showMessageDialog(null, errorMessage);
+            JTF_Nombre_Producto.requestFocus();
+        }
+        
+        if (camposCorrectos) {
+            String nombre = JTF_Nombre_Producto.getText();
+            String cod = JTF_Codigo_Producto.getText();
+
+            Producto p = new Producto(nombre, cod);
+
+            boolean exito = Gestor_Producto.altaProducto(p);
+
+            if ( exito ) {
+                String datos= "Código: " + cod + "\nNombre: " + nombre;
+
+                // Mostramos el éxito de la operación
+                JOptionPane.showMessageDialog(null, "Alta del nuevo producto exitosa: \n\n" + datos +"\n\n" );
+                resetCampos();
+            }
+        }
+        
     }//GEN-LAST:event_JB_Aceptar_NuevoProductoActionPerformed
 
     private void JB_Cancelar_NuevoProduActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_Cancelar_NuevoProduActionPerformed
@@ -1080,6 +1158,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void JTB_ProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTB_ProductosMouseClicked
         // TODO add your handling code here:
         int row = JTB_Productos.rowAtPoint(evt.getPoint());
+        filaSeleccionadaCambiar=row;
         
         String codigo="";
         String nombre="";
@@ -1105,29 +1184,85 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void JB_Limpiar_CambiarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_Limpiar_CambiarProductoActionPerformed
         // TODO add your handling code here:
         resetCamposModificar();
+        cargarTabla();
     }//GEN-LAST:event_JB_Limpiar_CambiarProductoActionPerformed
 
     private void JB_Aceptar_CambiarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_Aceptar_CambiarProductoActionPerformed
         // TODO add your handling code here:
         
-        Producto nuevoProducto = new Producto();
+        boolean camposRepetidos=false;
+        boolean camposCorrectos=false;
         
-        nuevoProducto.setCodigo( JTF_NCodigo_Producto.getText() );
-        nuevoProducto.setNombre( JTF_NCodigo_Producto.getText() );
+        String codRepetido="Código repetido\n";
+        String nomRepetido="Nombre repetido\n";
         
-        boolean exito = Gestor_Producto.actualizarProducto(codActualSeleccionado, nuevoProducto);
+        String repetidos="";
+        int contCambios=0;
         
-        if (exito) {
-            String datos= "Código: " + JTF_NCodigo_Producto.getText() + "\nNombre: " + JTF_NCodigo_Producto.getText();
+        // FLUJO NORMAL
+            if ( JTF_NCodigo_Producto.getText().length()!=0 && JTF_NNombre_Producto.getText().length()!=0 ) {
+                camposCorrectos=true;
+            }
+
+            if (camposCorrectos) {
+                
+                if (filaSeleccionadaCambiar>=0) {
+                    codAnterior=JTB_Productos.getValueAt(filaSeleccionadaCambiar, 1).toString();
+                    nomAnterior=JTB_Productos.getValueAt(filaSeleccionadaCambiar, 0).toString();
+                }
+
+                System.out.println("COD ANTERIOR: " + codAnterior);
+                System.out.println("NOM ANTERIOR: " + nomAnterior+"\n");
+                
+                if (codAnterior.equals( JTF_NCodigo_Producto.getText() )) {
+                    camposRepetidos=true;
+                    repetidos+=codRepetido;
+                }
+                else {
+                    contCambios++;
+                }
+
+                if (nomAnterior.equals( JTF_NNombre_Producto.getText() )) {
+                    camposRepetidos=true;
+                    repetidos+=nomRepetido;
+                }
+                else {
+                    contCambios++;
+                }
+
+                if (contCambios==0) {
+                    JOptionPane.showMessageDialog(rootPane, "Se encontraron los siguiente campos repetidos:\n\n" + repetidos + "\n");
+                }
+                else {
+                    Producto nuevoProducto = new Producto();
+
+                    nuevoProducto.setCodigo( JTF_NCodigo_Producto.getText() );
+                    nuevoProducto.setNombre( JTF_NNombre_Producto.getText() );
+
+                    boolean exito = Gestor_Producto.actualizarProducto(codActualSeleccionado, nuevoProducto);
+
+                    if (exito) {
+                        String datos= "Nombre: " + JTF_NNombre_Producto.getText() + "\nCódigo: " + JTF_NCodigo_Producto.getText();
+
+                        // Mostramos el éxito de la operación
+                        JOptionPane.showMessageDialog(null, "Actualización exitosa del nuevo producto: \n\n" + datos +"\n\n" );
+                        resetCamposModificar();
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null, "Actualizacion NO exitosa, revise los campos" );
+                    }
+                    
+                    cargarTabla();
+                    filaSeleccionadaCambiar=-1;
+                }
+                
+            }
+            else {
+                JOptionPane.showMessageDialog(rootPane, "Actualización fallida!\n\nRevise los campos ingresados\n\n");
+                cargarTabla();
+                filaSeleccionadaCambiar=-1;
+            }
             
-            // Mostramos el éxito de la operación
-            JOptionPane.showMessageDialog(null, "Actualización exitosa del nuevo producto: \n\n" + datos +"\n" );
-        }
-        else {
-            JOptionPane.showMessageDialog(null, "No se puede actualizar, codigo de producto incorrecto" );
-        }
-        
-        cargarTabla();
     }//GEN-LAST:event_JB_Aceptar_CambiarProductoActionPerformed
 
     private void JTB_Productos1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTB_Productos1MouseClicked
@@ -1142,29 +1277,41 @@ public class MenuPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_JTB_Productos1MouseClicked
 
+    private void reiniciarTablasProductos() {
+        cargarTablaEliminar();
+        cargarTablaProductos_Venta();
+        cargarTabla();
+    }
+    
     private void JB_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_EliminarActionPerformed
         // TODO add your handling code here:
         
-        String cartel = "Desea eliminar el siguiente producto?\n\n";
+        if (!codActualSeleccionado.equals("") && !nomActualSeleccionado.equals("")) {
+            String cartel = "Desea eliminar el siguiente producto?\n\n";
                cartel += "Nombre: " + codActualSeleccionado + "\n";
                cartel += "Código: " + nomActualSeleccionado + "\n\n";
         
-        int n = JOptionPane.showConfirmDialog (
-            null,
-            cartel,"Confirmar eliminación",
-            JOptionPane.YES_NO_OPTION);
+            int n = JOptionPane.showConfirmDialog (
+                null,
+                cartel,"Confirmar eliminación",
+                JOptionPane.YES_NO_OPTION);
 
-        if(n == JOptionPane.YES_OPTION){
-            // Eliminar producto
-            if (Gestor_Producto.bajaProducto(codActualSeleccionado)) {
-                JOptionPane.showMessageDialog(null, "El producto con código: "+ codActualSeleccionado +" \nfue dado de baja exitosamente\n\n");
+            if(n == JOptionPane.YES_OPTION){
+                // Eliminar producto
+                if (Gestor_Producto.bajaProducto(codActualSeleccionado)) {
+                    JOptionPane.showMessageDialog(null, "El producto con código:\n\n Código: "+ codActualSeleccionado +" \n\nFue dado de baja exitosamente\n\n");
+                }
+
+                reiniciarTablasProductos();
             }
-            
-            cargarTablaEliminar();
+            else {
+                //JOptionPane.showMessageDialog(null, "No se ha eliminado el producto\n\n");
+            }
         }
         else {
-            //JOptionPane.showMessageDialog(null, "No se ha eliminado el producto\n\n");
+            JOptionPane.showMessageDialog(null, "Debe seleccionar al menos un producto para eliminar\n");
         }
+        
     }//GEN-LAST:event_JB_EliminarActionPerformed
     
     //"Caso de uso Buscar Produccion"
@@ -1194,8 +1341,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_JTF_Filtro_ProductoActionPerformed
 
     private void JTB_MenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTB_MenuMouseClicked
-        // TODO add your handling code here:
-        
+        // TODO add your handling code here:        
     }//GEN-LAST:event_JTB_MenuMouseClicked
 
     public  boolean verificarSiEstaCargado( String cod ) {
@@ -1273,23 +1419,23 @@ public class MenuPrincipal extends javax.swing.JFrame {
         sumar = totalPagar;
     }//GEN-LAST:event_JT_Ventas_AcumuladoMouseClicked
 
+    private void deseleccionarTablasVenta() {
+        JT_Ventas_Productos.clearSelection();
+        JT_Ventas_Acumulado.clearSelection();
+        JT_Ventas_Clientes.clearSelection();
+    }
+    
     private void JTF_Ventas_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTF_Ventas_CancelarActionPerformed
         // TODO add your handling code here:
-        cargarTablaVentasAcumulado_Venta();
-        codigos = new ArrayList();
-        totalPagar=0;
-        JL_SignoARS.setText("Total: $ 0.00");
+        iniciarVenta();
     }//GEN-LAST:event_JTF_Ventas_CancelarActionPerformed
-
-    private void redibujarTabla(DefaultTableModel model) {
-        JT_Ventas_Acumulado.setModel(model);
-    }
     
     private void JT_Ventas_AcumuladoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JT_Ventas_AcumuladoKeyPressed
         // TODO add your handling code here:
         
         if ( evt.getKeyCode() == KeyEvent.VK_ENTER && filaSeleccionada>=0 ) {
             System.out.println("PRESIONASTE ENTER!!");
+            actualizarModeloVentaAcumulado();
         }
         
     }//GEN-LAST:event_JT_Ventas_AcumuladoKeyPressed
@@ -1333,45 +1479,50 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void JB_Ventas_FinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_Ventas_FinalizarActionPerformed
         // TODO add your handling code here:
         
-        String fecha = "";
-        Calendar c1 = new GregorianCalendar();
-        
-        String dia, mes, annio;
-        
-        dia = Integer.toString(c1.get(Calendar.DATE));
-        mes = Integer.toString(c1.get(Calendar.MONTH));
-        annio = Integer.toString(c1.get(Calendar.YEAR));
-        
-        fecha = annio + "-" + mes + "-" + dia;
-        
-        String nombre="";
-        float importe=0;
-        
-        if (totalPagar>0) {
-            importe=totalPagar;
-            // Cliente seleccionado
-            if ( clienteSeleccionado>=0 ) {
-                nombre=JT_Ventas_Clientes.getValueAt(clienteSeleccionado, 1).toString();
+        if (contFilasSeleccionadas>0) {
+            String fecha = "";
+            Calendar c1 = new GregorianCalendar();
+
+            String dia, mes, annio;
+
+            dia = Integer.toString(c1.get(Calendar.DATE));
+            mes = Integer.toString(c1.get(Calendar.MONTH));
+            annio = Integer.toString(c1.get(Calendar.YEAR));
+
+            fecha = annio + "-" + mes + "-" + dia;
+
+            String nombre="";
+            float importe=0;
+
+            if (totalPagar>0) {
+                importe=totalPagar;
+                // Cliente seleccionado
+                if ( clienteSeleccionado>=0 ) {
+                    nombre=JT_Ventas_Clientes.getValueAt(clienteSeleccionado, 1).toString();
+                }
+                // Anónimo
+                else {
+                    nombre="Anónimo";
+                }
+
+                //REGISTRAR LA VENTA EN LA BD
+                boolean exito=Gestor_Venta.registrarVenta(nombre, importe, fecha);
+
+                if (exito) {
+                    JOptionPane.showMessageDialog(null, "Venta registrada exitosamente para el cliente:\n\n" + nombre +"\n" );
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "La venta no se ha registrado!\n\n" );
+                }
             }
-            // Anónimo
-            else {
-                nombre="Anónimo";
-            }
-            
-            //REGISTRAR LA VENTA EN LA BD
-            boolean exito=Gestor_Venta.registrarVenta(nombre, importe, fecha);
-            
-            if (exito) {
-                JOptionPane.showMessageDialog(null, "Venta registrada exitosamente para el cliente:\n\n" + nombre +"\n" );
-            }
-            else {
-                JOptionPane.showMessageDialog(null, "La venta no se ha registrado!\n\n" );
-            }
+        }
+        else {
+            JOptionPane.showMessageDialog(rootPane, "Debe seleccionar al menos un producto");
         }
         
     }//GEN-LAST:event_JB_Ventas_FinalizarActionPerformed
 
-    private void actualizarModelo( DefaultTableModel modelo ) {        
+    private void actualizarModeloVentaAcumulado() {        
         float precio=0;
         int cant=0;
         float subt=0;
@@ -1383,11 +1534,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
             subt = precio * cant;
 
+            System.out.println("\nPrecio: "+precio);
+            System.out.println("Cantidad: "+cant);
+            System.out.println("Subtotal: "+subt+"\n");
+            
+            // Actualiza el subtotal en la tabla
             JT_Ventas_Acumulado.setValueAt(String.valueOf(subt), filaSeleccionada, 4);
             
             // Actualiza el total
             
-            int i, j;
+            int i;
             String []datos = new String[5];
             
             float total = 0;
@@ -1404,25 +1560,54 @@ public class MenuPrincipal extends javax.swing.JFrame {
             
             totalPagar = total;
             
-            /*
-            totalPagar -= subTotalAnt;
-            totalPagar += subt;
-            */
             actualizarJLabelTotal(totalPagar);
             
             // Reset variables globales
             subTotalAnt=0;
-            
         }
     }
     
     private void JT_Ventas_AcumuladoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_JT_Ventas_AcumuladoPropertyChange
         // TODO add your handling code here:
-        
         // ACTUALIZAR TODA LA TABLA
-        actualizarModelo(modeloVentaAcumulado);
-        
+        actualizarModeloVentaAcumulado();
     }//GEN-LAST:event_JT_Ventas_AcumuladoPropertyChange
+
+    private void JTF_NCodigo_ProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTF_NCodigo_ProductoKeyTyped
+        // TODO add your handling code here:
+        int MAX = 6;
+        
+        if (JTF_NCodigo_Producto.getText().length()>= MAX){
+            evt.consume();
+            JOptionPane.showMessageDialog(rootPane, "El código debe tener máximo 6 caracteres");
+        }
+    }//GEN-LAST:event_JTF_NCodigo_ProductoKeyTyped
+
+    private void JTF_NCodigo_ProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTF_NCodigo_ProductoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JTF_NCodigo_ProductoActionPerformed
+
+    private void JTF_Codigo_ProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTF_Codigo_ProductoKeyTyped
+        // TODO add your handling code here:
+        
+        int MAX = 6;
+        
+        if (JTF_Codigo_Producto.getText().length()>= MAX){
+            evt.consume();
+            JOptionPane.showMessageDialog(rootPane, "El código debe tener máximo 6 caracteres");
+        }
+        
+    }//GEN-LAST:event_JTF_Codigo_ProductoKeyTyped
+
+    private void JP_VentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JP_VentasMouseClicked
+        // TODO add your handling code here:
+        //iniciarVenta();
+    }//GEN-LAST:event_JP_VentasMouseClicked
+
+    private void JB_Cancelar_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_Cancelar_EliminarActionPerformed
+        // TODO add your handling code here:
+        cargarTablaEliminar();
+    }//GEN-LAST:event_JB_Cancelar_EliminarActionPerformed
  public void construir_tabla(ResultSet sr){
             modelo= new DefaultTableModel();
             modelo.addColumn("Fecha de Elaboración");

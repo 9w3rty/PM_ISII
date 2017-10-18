@@ -57,7 +57,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="JTB_Menu" alignment="0" max="32767" attributes="0"/>
+          <Component id="JTB_Menu" alignment="0" pref="747" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -133,7 +133,7 @@
                           <Component id="JB_Cambiar_Producto" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
                           <Component id="JB_Baja_Producto" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="492" max="32767" attributes="0"/>
+                          <EmptySpace pref="489" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -262,7 +262,7 @@
                                   <Component id="JB_Aceptar_CambiarProducto" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="JB_Limpiar_CambiarProducto" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="138" max="32767" attributes="0"/>
+                              <EmptySpace pref="135" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -290,6 +290,9 @@
                           <Events>
                             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="JTB_ProductosMouseClicked"/>
                           </Events>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JTB_Productos = new javax.swing.JTable() {&#xa;    public boolean isCellEditable(int rowIndex, int colIndex) {&#xa;        return false; //Disallow the editing of any cell&#xa;    }&#xa;};"/>
+                          </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -311,6 +314,10 @@
                     <Component class="javax.swing.JTextField" name="JTF_NNombre_Producto">
                     </Component>
                     <Component class="javax.swing.JTextField" name="JTF_NCodigo_Producto">
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JTF_NCodigo_ProductoActionPerformed"/>
+                        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="JTF_NCodigo_ProductoKeyTyped"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="JB_Aceptar_CambiarProducto">
                       <Properties>
@@ -361,7 +368,7 @@
                           <Group type="102" attributes="0">
                               <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane2" alignment="0" pref="1170" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane2" alignment="0" pref="1192" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="JL_Info_Baja" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -378,7 +385,7 @@
                               <Component id="JL_Info_Baja" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jScrollPane2" min="-2" pref="344" max="-2" attributes="0"/>
-                              <EmptySpace pref="202" max="32767" attributes="0"/>
+                              <EmptySpace pref="199" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="JB_Eliminar" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="JB_Cancelar_Eliminar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -411,6 +418,9 @@
                           <Events>
                             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="JTB_Productos1MouseClicked"/>
                           </Events>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JTB_Productos1 = new javax.swing.JTable() {&#xa;    public boolean isCellEditable(int rowIndex, int colIndex) {&#xa;        return false; //Disallow the editing of any cell&#xa;    }&#xa;};"/>
+                          </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -437,6 +447,9 @@
                           <Color id="Cursor de Mano"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JB_Cancelar_EliminarActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -466,7 +479,7 @@
                                   <Component id="JTF_Codigo_Producto" max="32767" attributes="0"/>
                                   <Component id="JTF_Nombre_Producto" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="569" max="32767" attributes="0"/>
+                              <EmptySpace pref="565" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -483,7 +496,7 @@
                                   <Component id="JL_Codigo_Producto" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="JTF_Codigo_Producto" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="465" max="32767" attributes="0"/>
+                              <EmptySpace pref="462" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="JB_Aceptar_NuevoProducto" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="JB_Cancelar_NuevoProdu" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -507,6 +520,9 @@
                     <Component class="javax.swing.JTextField" name="JTF_Nombre_Producto">
                     </Component>
                     <Component class="javax.swing.JTextField" name="JTF_Codigo_Producto">
+                      <Events>
+                        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="JTF_Codigo_ProductoKeyTyped"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="JB_Aceptar_NuevoProducto">
                       <Properties>
@@ -521,7 +537,7 @@
                     </Component>
                     <Component class="javax.swing.JButton" name="JB_Cancelar_NuevoProdu">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Reset"/>
+                        <Property name="text" type="java.lang.String" value="Limpiar"/>
                         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                           <Color id="Cursor de Mano"/>
                         </Property>
@@ -553,7 +569,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="722" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="719" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -575,7 +591,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="722" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="719" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -597,12 +613,15 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="722" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="719" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
         </Container>
         <Container class="javax.swing.JPanel" name="JP_Ventas">
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="JP_VentasMouseClicked"/>
+          </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Ventas">
@@ -639,7 +658,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="JB_Ventas_ComenzarVenta" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="20" max="32767" attributes="0"/>
+                          <EmptySpace pref="38" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -648,7 +667,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="JB_Ventas_ComenzarVenta" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="684" max="32767" attributes="0"/>
+                          <EmptySpace pref="681" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -693,18 +712,17 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
                                       <Component id="JTF_Filtro_Producto" min="-2" pref="345" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
                                   </Group>
-                                  <Group type="102" alignment="1" attributes="0">
+                                  <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="1" attributes="0">
                                           <Group type="102" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="JTF_Filtro_Cliente" alignment="0" min="-2" pref="345" max="-2" attributes="0"/>
                                                   <Group type="102" alignment="0" attributes="0">
                                                       <Component id="JB_Ventas_Finalizar" min="-2" pref="137" max="-2" attributes="0"/>
                                                       <EmptySpace min="-2" pref="210" max="-2" attributes="0"/>
@@ -715,6 +733,7 @@
                                                       <EmptySpace min="-2" pref="375" max="-2" attributes="0"/>
                                                       <Component id="JL_info_Venta2" min="-2" max="-2" attributes="0"/>
                                                   </Group>
+                                                  <Component id="JTF_Filtro_Cliente" alignment="0" min="-2" pref="345" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                           </Group>
@@ -779,7 +798,7 @@
                                   <Component id="JB_Ventas_Finalizar" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="JTF_Ventas_Cancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="116" max="32767" attributes="0"/>
+                              <EmptySpace pref="105" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -809,6 +828,9 @@
                           <Events>
                             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="JT_Ventas_ProductosMouseClicked"/>
                           </Events>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JT_Ventas_Productos = new javax.swing.JTable(){&#xa;    public boolean isCellEditable(int rowIndex, int colIndex) {&#xa;        return false; //Disallow the editing of any cell&#xa;    }&#xa;};"/>
+                          </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -880,6 +902,9 @@
                           <Events>
                             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="JT_Ventas_ClientesMouseClicked"/>
                           </Events>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JT_Ventas_Clientes = new javax.swing.JTable() {&#xa;    public boolean isCellEditable(int rowIndex, int colIndex) {&#xa;        return false; //Disallow the editing of any cell&#xa;    }&#xa;};"/>
+                          </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -958,7 +983,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="JB_Buscar_Producciones" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="76" max="32767" attributes="0"/>
+                          <EmptySpace pref="84" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -967,7 +992,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="JB_Buscar_Producciones" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="684" max="32767" attributes="0"/>
+                          <EmptySpace pref="681" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1057,7 +1082,7 @@
                               <Component id="JB_Producciones_Aceptar_Busqueda" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jScrollPane3" min="-2" pref="458" max="-2" attributes="0"/>
-                              <EmptySpace pref="141" max="32767" attributes="0"/>
+                              <EmptySpace pref="130" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
