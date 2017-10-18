@@ -15,11 +15,13 @@ public class Gestor_Venta {
     
     public static boolean registrarVenta(String nombre, float total, String fecha) {
         
+        // SE CONECTA
         SQL_Conexión.getInstance().connect();
         String query = "INSERT INTO venta (imp_total, n_c, fecha) VALUES ( "+total+", '" + nombre + "', '"+fecha+"' )";
         
         boolean exito = SQL_Conexión.getInstance().updateQuery(query);
         
+        // CIERRA CONEXIÓN
         SQL_Conexión.getInstance().close();
         
         return exito;
