@@ -245,6 +245,44 @@ public class MenuPrincipal extends javax.swing.JFrame {
         JT_Producciones = new javax.swing.JTable();
         JTF_Producciones_NLote = new javax.swing.JTextField();
         JDC_Producciones_BuscarFecha = new com.toedter.calendar.JDateChooser();
+        JP_Clientes = new javax.swing.JPanel();
+        JP_Botones_Ventas = new javax.swing.JPanel();
+        JB_Nuevo_Cliente = new javax.swing.JButton();
+        JB_Eliminar_Cliente = new javax.swing.JButton();
+        JB_Modificar_Cliente = new javax.swing.JButton();
+        JP_info_Clientes = new javax.swing.JPanel();
+        JP_Agregar_Cliente = new javax.swing.JPanel();
+        JL_Ingrese_DNI = new javax.swing.JLabel();
+        JL_Ingrese_DOM = new javax.swing.JLabel();
+        JL_Ingrese_NOM = new javax.swing.JLabel();
+        JL_Ingrese_TEL = new javax.swing.JLabel();
+        JTF_Ingrese_DNI = new javax.swing.JTextField();
+        JTF_Ingrese_DOM = new javax.swing.JTextField();
+        JTF_Ingrese_NOM = new javax.swing.JTextField();
+        JTF_Ingrese_TEL = new javax.swing.JTextField();
+        JB_Ingresar_Cliente_Aceptar = new javax.swing.JButton();
+        JB_Ingresar_Cliente_Cancelar = new javax.swing.JButton();
+        JP_Eliminar_Cliente = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        JP_Modificar_Cliente = new javax.swing.JPanel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        JT_Modificar_Cliente = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -317,7 +355,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(JB_Cambiar_Producto)
                 .addGap(67, 67, 67)
                 .addComponent(JB_Baja_Producto)
-                .addContainerGap(489, Short.MAX_VALUE))
+                .addContainerGap(484, Short.MAX_VALUE))
         );
 
         JP_Productos.add(JP_botones_Productos, java.awt.BorderLayout.LINE_START);
@@ -987,6 +1025,271 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         JTB_Menu.addTab("Producciones", JP_Producciones);
 
+        JP_Clientes.setLayout(new java.awt.BorderLayout());
+
+        JP_Botones_Ventas.setPreferredSize(new java.awt.Dimension(163, 720));
+
+        JB_Nuevo_Cliente.setText("Nuevo Cliente");
+
+        JB_Eliminar_Cliente.setText("Eliminar Cliente");
+
+        JB_Modificar_Cliente.setText("Cambiar Cliente");
+
+        javax.swing.GroupLayout JP_Botones_VentasLayout = new javax.swing.GroupLayout(JP_Botones_Ventas);
+        JP_Botones_Ventas.setLayout(JP_Botones_VentasLayout);
+        JP_Botones_VentasLayout.setHorizontalGroup(
+            JP_Botones_VentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JP_Botones_VentasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(JP_Botones_VentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(JB_Eliminar_Cliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(JB_Modificar_Cliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                    .addComponent(JB_Nuevo_Cliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        JP_Botones_VentasLayout.setVerticalGroup(
+            JP_Botones_VentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JP_Botones_VentasLayout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addComponent(JB_Nuevo_Cliente)
+                .addGap(54, 54, 54)
+                .addComponent(JB_Modificar_Cliente)
+                .addGap(46, 46, 46)
+                .addComponent(JB_Eliminar_Cliente)
+                .addContainerGap(490, Short.MAX_VALUE))
+        );
+
+        JP_Clientes.add(JP_Botones_Ventas, java.awt.BorderLayout.LINE_START);
+
+        JP_info_Clientes.setLayout(new java.awt.CardLayout());
+
+        JL_Ingrese_DNI.setText("Ingrese el D.N.I:");
+
+        JL_Ingrese_DOM.setText("Ingrese el Domicilio:");
+
+        JL_Ingrese_NOM.setText("Ingrese el Nombre:");
+
+        JL_Ingrese_TEL.setText("Ingrese el Teléfono:");
+
+        JB_Ingresar_Cliente_Aceptar.setText("Aceptar");
+        JB_Ingresar_Cliente_Aceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        JB_Ingresar_Cliente_Cancelar.setText("Cancelar");
+        JB_Ingresar_Cliente_Cancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        javax.swing.GroupLayout JP_Agregar_ClienteLayout = new javax.swing.GroupLayout(JP_Agregar_Cliente);
+        JP_Agregar_Cliente.setLayout(JP_Agregar_ClienteLayout);
+        JP_Agregar_ClienteLayout.setHorizontalGroup(
+            JP_Agregar_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JP_Agregar_ClienteLayout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(JP_Agregar_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(JL_Ingrese_DNI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(JL_Ingrese_DOM, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                    .addComponent(JL_Ingrese_NOM, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(JL_Ingrese_TEL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(91, 91, 91)
+                .addGroup(JP_Agregar_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(JP_Agregar_ClienteLayout.createSequentialGroup()
+                        .addComponent(JB_Ingresar_Cliente_Aceptar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
+                        .addComponent(JB_Ingresar_Cliente_Cancelar))
+                    .addComponent(JTF_Ingrese_DNI)
+                    .addComponent(JTF_Ingrese_DOM)
+                    .addComponent(JTF_Ingrese_NOM)
+                    .addComponent(JTF_Ingrese_TEL))
+                .addContainerGap(698, Short.MAX_VALUE))
+        );
+        JP_Agregar_ClienteLayout.setVerticalGroup(
+            JP_Agregar_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JP_Agregar_ClienteLayout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addGroup(JP_Agregar_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JL_Ingrese_DNI)
+                    .addComponent(JTF_Ingrese_DNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(45, 45, 45)
+                .addGroup(JP_Agregar_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JL_Ingrese_DOM)
+                    .addComponent(JTF_Ingrese_DOM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(48, 48, 48)
+                .addGroup(JP_Agregar_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JL_Ingrese_NOM)
+                    .addComponent(JTF_Ingrese_NOM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(47, 47, 47)
+                .addGroup(JP_Agregar_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JL_Ingrese_TEL)
+                    .addComponent(JTF_Ingrese_TEL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(95, 95, 95)
+                .addGroup(JP_Agregar_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JB_Ingresar_Cliente_Aceptar)
+                    .addComponent(JB_Ingresar_Cliente_Cancelar))
+                .addContainerGap(318, Short.MAX_VALUE))
+        );
+
+        JP_info_Clientes.add(JP_Agregar_Cliente, "card4");
+
+        jLabel8.setText("Seleccione el Cliente que desea elminar:");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane8.setViewportView(jTable1);
+
+        jButton3.setText("Aceptar");
+
+        jButton4.setText("Cancelar");
+
+        javax.swing.GroupLayout JP_Eliminar_ClienteLayout = new javax.swing.GroupLayout(JP_Eliminar_Cliente);
+        JP_Eliminar_Cliente.setLayout(JP_Eliminar_ClienteLayout);
+        JP_Eliminar_ClienteLayout.setHorizontalGroup(
+            JP_Eliminar_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JP_Eliminar_ClienteLayout.createSequentialGroup()
+                .addGroup(JP_Eliminar_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(JP_Eliminar_ClienteLayout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(JP_Eliminar_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(JP_Eliminar_ClienteLayout.createSequentialGroup()
+                        .addGap(387, 387, 387)
+                        .addComponent(jButton3)
+                        .addGap(90, 90, 90)
+                        .addComponent(jButton4)))
+                .addContainerGap(250, Short.MAX_VALUE))
+        );
+        JP_Eliminar_ClienteLayout.setVerticalGroup(
+            JP_Eliminar_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JP_Eliminar_ClienteLayout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(jLabel8)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 261, Short.MAX_VALUE)
+                .addGroup(JP_Eliminar_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4))
+                .addGap(211, 211, 211))
+        );
+
+        JP_info_Clientes.add(JP_Eliminar_Cliente, "card3");
+
+        JT_Modificar_Cliente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane7.setViewportView(JT_Modificar_Cliente);
+
+        jLabel2.setText("Seleccione un Cliente para cambiar sus datos:");
+
+        jLabel3.setText("Ingrese el nuevo Nombre:");
+
+        jLabel4.setText("Ingrese el nuevo D.N.I:");
+
+        jLabel5.setText("Ingrese el nuevo Domicilio:");
+
+        jLabel6.setText("Ingrese el nuevo Teléfono:");
+
+        jLabel7.setText("Los campos se rellenerán automáticamente con los datos del Cliente seleccionado.");
+
+        jTextField1.setText("jTextField1");
+
+        jTextField2.setText("jTextField2");
+
+        jTextField3.setText("jTextField3");
+
+        jTextField4.setText("jTextField4");
+
+        jButton1.setText("Aceptar");
+
+        jButton2.setText("jButton2");
+
+        javax.swing.GroupLayout JP_Modificar_ClienteLayout = new javax.swing.GroupLayout(JP_Modificar_Cliente);
+        JP_Modificar_Cliente.setLayout(JP_Modificar_ClienteLayout);
+        JP_Modificar_ClienteLayout.setHorizontalGroup(
+            JP_Modificar_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JP_Modificar_ClienteLayout.createSequentialGroup()
+                .addGroup(JP_Modificar_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(JP_Modificar_ClienteLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(JP_Modificar_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)))
+                    .addGroup(JP_Modificar_ClienteLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel7))
+                    .addGroup(JP_Modificar_ClienteLayout.createSequentialGroup()
+                        .addGap(108, 108, 108)
+                        .addGroup(JP_Modificar_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(JP_Modificar_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel6)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel5))
+                        .addGap(76, 76, 76)
+                        .addGroup(JP_Modificar_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(JP_Modificar_ClienteLayout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
+                                .addComponent(jButton2))
+                            .addComponent(jTextField1)
+                            .addComponent(jTextField2)
+                            .addComponent(jTextField3)
+                            .addComponent(jTextField4))))
+                .addContainerGap(266, Short.MAX_VALUE))
+        );
+        JP_Modificar_ClienteLayout.setVerticalGroup(
+            JP_Modificar_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JP_Modificar_ClienteLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addGap(23, 23, 23)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel7)
+                .addGap(28, 28, 28)
+                .addGroup(JP_Modificar_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
+                .addGroup(JP_Modificar_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(JP_Modificar_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
+                .addGroup(JP_Modificar_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(68, 68, 68)
+                .addGroup(JP_Modificar_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addContainerGap(153, Short.MAX_VALUE))
+        );
+
+        JP_info_Clientes.add(JP_Modificar_Cliente, "card2");
+
+        JP_Clientes.add(JP_info_Clientes, java.awt.BorderLayout.CENTER);
+
+        JTB_Menu.addTab("Clientes", JP_Clientes);
+
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
 
@@ -1296,8 +1599,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         
         if (!codActualSeleccionado.equals("") && !nomActualSeleccionado.equals("")) {
             String cartel = "Desea eliminar el siguiente producto?\n\n";
-               cartel += "Nombre: " + codActualSeleccionado + "\n";
-               cartel += "Código: " + nomActualSeleccionado + "\n\n";
+               cartel += "Nombre: " + nomActualSeleccionado  + "\n";
+               cartel += "Código: " + codActualSeleccionado + "\n\n";
         
             int n = JOptionPane.showConfirmDialog (
                 null,
@@ -1710,7 +2013,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton JB_Cancelar_Eliminar;
     private javax.swing.JButton JB_Cancelar_NuevoProdu;
     private javax.swing.JButton JB_Eliminar;
+    private javax.swing.JButton JB_Eliminar_Cliente;
+    private javax.swing.JButton JB_Ingresar_Cliente_Aceptar;
+    private javax.swing.JButton JB_Ingresar_Cliente_Cancelar;
     private javax.swing.JButton JB_Limpiar_CambiarProducto;
+    private javax.swing.JButton JB_Modificar_Cliente;
+    private javax.swing.JButton JB_Nuevo_Cliente;
     private javax.swing.JButton JB_Producciones_Aceptar_Busqueda;
     private javax.swing.JButton JB_Quitar_Producto;
     private javax.swing.JButton JB_Ventas_ComenzarVenta;
@@ -1719,6 +2027,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel JL_Codigo_Producto;
     private javax.swing.JLabel JL_Info_Baja;
     private javax.swing.JLabel JL_Info_en_cambiar;
+    private javax.swing.JLabel JL_Ingrese_DNI;
+    private javax.swing.JLabel JL_Ingrese_DOM;
+    private javax.swing.JLabel JL_Ingrese_NOM;
+    private javax.swing.JLabel JL_Ingrese_TEL;
     private javax.swing.JLabel JL_NCodigo;
     private javax.swing.JLabel JL_NNombre;
     private javax.swing.JLabel JL_Nombre_Producto;
@@ -1726,12 +2038,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel JL_info_Venta1;
     private javax.swing.JLabel JL_info_Venta2;
     private javax.swing.JLabel JL_info_Venta3;
+    private javax.swing.JPanel JP_Agregar_Cliente;
     private javax.swing.JPanel JP_Alta_Producto;
     private javax.swing.JPanel JP_Baja_Producto;
+    private javax.swing.JPanel JP_Botones_Ventas;
     private javax.swing.JPanel JP_Buscar_Producción;
     private javax.swing.JPanel JP_Cambiar_Producto;
+    private javax.swing.JPanel JP_Clientes;
     private javax.swing.JPanel JP_Comenzar_Venta;
+    private javax.swing.JPanel JP_Eliminar_Cliente;
     private javax.swing.JPanel JP_MateriaPrima;
+    private javax.swing.JPanel JP_Modificar_Cliente;
     private javax.swing.JPanel JP_Producciones;
     private javax.swing.JPanel JP_Productos;
     private javax.swing.JPanel JP_Proveedores;
@@ -1740,6 +2057,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel JP_botones_Producciones;
     private javax.swing.JPanel JP_botones_Productos;
     private javax.swing.JPanel JP_botones_Ventas;
+    private javax.swing.JPanel JP_info_Clientes;
     private javax.swing.JPanel JP_info_Producciones;
     private javax.swing.JPanel JP_info_Productos;
     private javax.swing.JPanel JP_info_Ventas;
@@ -1749,17 +2067,33 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField JTF_Codigo_Producto;
     private javax.swing.JTextField JTF_Filtro_Cliente;
     private javax.swing.JTextField JTF_Filtro_Producto;
+    private javax.swing.JTextField JTF_Ingrese_DNI;
+    private javax.swing.JTextField JTF_Ingrese_DOM;
+    private javax.swing.JTextField JTF_Ingrese_NOM;
+    private javax.swing.JTextField JTF_Ingrese_TEL;
     private javax.swing.JTextField JTF_NCodigo_Producto;
     private javax.swing.JTextField JTF_NNombre_Producto;
     private javax.swing.JTextField JTF_Nombre_Producto;
     private javax.swing.JTextField JTF_Producciones_NLote;
     private javax.swing.JButton JTF_Ventas_Cancelar;
+    private javax.swing.JTable JT_Modificar_Cliente;
     private javax.swing.JTable JT_Producciones;
     private javax.swing.JTable JT_Ventas_Acumulado;
     private javax.swing.JTable JT_Ventas_Clientes;
     private javax.swing.JTable JT_Ventas_Productos;
     private javax.swing.JLabel LF_Info_CambiarProducto2;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -1770,6 +2104,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
 }
