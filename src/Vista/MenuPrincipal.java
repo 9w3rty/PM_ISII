@@ -235,6 +235,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         JP_Producciones = new javax.swing.JPanel();
         JP_botones_Producciones = new javax.swing.JPanel();
         JB_Buscar_Producciones = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
         JP_info_Producciones = new javax.swing.JPanel();
         JP_Buscar_Producción = new javax.swing.JPanel();
         jOPTB_BPF = new javax.swing.JRadioButton();
@@ -245,6 +246,23 @@ public class MenuPrincipal extends javax.swing.JFrame {
         JT_Producciones = new javax.swing.JTable();
         JTF_Producciones_NLote = new javax.swing.JTextField();
         JDC_Producciones_BuscarFecha = new com.toedter.calendar.JDateChooser();
+        JP_Cargar_Produccion = new javax.swing.JPanel();
+        JL_Seleccione_un_Producto = new javax.swing.JLabel();
+        JL_seleccione_variedad = new javax.swing.JLabel();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jScrollPane11 = new javax.swing.JScrollPane();
+        jTable4 = new javax.swing.JTable();
+        jLabel11 = new javax.swing.JLabel();
+        jScrollPane12 = new javax.swing.JScrollPane();
+        jTable5 = new javax.swing.JTable();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
         JP_Clientes = new javax.swing.JPanel();
         JP_Botones_Ventas = new javax.swing.JPanel();
         JB_Nuevo_Cliente = new javax.swing.JButton();
@@ -914,21 +932,27 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jButton5.setText("Cargar");
+
         javax.swing.GroupLayout JP_botones_ProduccionesLayout = new javax.swing.GroupLayout(JP_botones_Producciones);
         JP_botones_Producciones.setLayout(JP_botones_ProduccionesLayout);
         JP_botones_ProduccionesLayout.setHorizontalGroup(
             JP_botones_ProduccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JP_botones_ProduccionesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(JB_Buscar_Producciones)
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addGroup(JP_botones_ProduccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(JB_Buscar_Producciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         JP_botones_ProduccionesLayout.setVerticalGroup(
             JP_botones_ProduccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JP_botones_ProduccionesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(JB_Buscar_Producciones)
-                .addContainerGap(681, Short.MAX_VALUE))
+                .addGap(34, 34, 34)
+                .addComponent(jButton5)
+                .addContainerGap(616, Short.MAX_VALUE))
         );
 
         JP_Producciones.add(JP_botones_Producciones, java.awt.BorderLayout.LINE_START);
@@ -1020,6 +1044,133 @@ public class MenuPrincipal extends javax.swing.JFrame {
         );
 
         JP_info_Producciones.add(JP_Buscar_Producción, "card2");
+
+        JL_Seleccione_un_Producto.setText("Seleccione un Producto:");
+
+        JL_seleccione_variedad.setText("Seleccione una Variedad:");
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane9.setViewportView(jTable2);
+
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane10.setViewportView(jTable3);
+
+        jLabel9.setText("Seleccione la fecha del día de Producción: ");
+
+        jLabel10.setText("Seleccione la materia prima utilizada:");
+
+        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jTable4.setPreferredSize(new java.awt.Dimension(150, 450));
+        jScrollPane11.setViewportView(jTable4);
+
+        jLabel11.setText("Indique la cantidad de materia prima utilizada, modificando el campo \"Cantidad\".");
+
+        jTable5.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane12.setViewportView(jTable5);
+
+        jButton6.setText("Aceptar");
+
+        jButton7.setText("Cancelar");
+
+        javax.swing.GroupLayout JP_Cargar_ProduccionLayout = new javax.swing.GroupLayout(JP_Cargar_Produccion);
+        JP_Cargar_Produccion.setLayout(JP_Cargar_ProduccionLayout);
+        JP_Cargar_ProduccionLayout.setHorizontalGroup(
+            JP_Cargar_ProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JP_Cargar_ProduccionLayout.createSequentialGroup()
+                .addGap(62, 62, 62)
+                .addGroup(JP_Cargar_ProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton6)
+                    .addGroup(JP_Cargar_ProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(JP_Cargar_ProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addGroup(JP_Cargar_ProduccionLayout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(112, 112, 112)
+                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane9, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(JL_Seleccione_un_Producto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 245, Short.MAX_VALUE)
+                .addGroup(JP_Cargar_ProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(JP_Cargar_ProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
+                        .addComponent(JL_seleccione_variedad, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane10))
+                    .addComponent(jLabel11)
+                    .addComponent(jButton7))
+                .addGap(52, 52, 52))
+        );
+        JP_Cargar_ProduccionLayout.setVerticalGroup(
+            JP_Cargar_ProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JP_Cargar_ProduccionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(JP_Cargar_ProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addGap(35, 35, 35)
+                .addGroup(JP_Cargar_ProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JL_Seleccione_un_Producto)
+                    .addComponent(JL_seleccione_variedad))
+                .addGap(18, 18, 18)
+                .addGroup(JP_Cargar_ProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(52, 52, 52)
+                .addGroup(JP_Cargar_ProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel11))
+                .addGap(54, 54, 54)
+                .addGroup(JP_Cargar_ProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+                .addGroup(JP_Cargar_ProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton6)
+                    .addComponent(jButton7))
+                .addGap(54, 54, 54))
+        );
+
+        JP_info_Producciones.add(JP_Cargar_Produccion, "card3");
 
         JP_Producciones.add(JP_info_Producciones, java.awt.BorderLayout.CENTER);
 
@@ -2034,16 +2185,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel JL_NCodigo;
     private javax.swing.JLabel JL_NNombre;
     private javax.swing.JLabel JL_Nombre_Producto;
+    private javax.swing.JLabel JL_Seleccione_un_Producto;
     private javax.swing.JLabel JL_SignoARS;
     private javax.swing.JLabel JL_info_Venta1;
     private javax.swing.JLabel JL_info_Venta2;
     private javax.swing.JLabel JL_info_Venta3;
+    private javax.swing.JLabel JL_seleccione_variedad;
     private javax.swing.JPanel JP_Agregar_Cliente;
     private javax.swing.JPanel JP_Alta_Producto;
     private javax.swing.JPanel JP_Baja_Producto;
     private javax.swing.JPanel JP_Botones_Ventas;
     private javax.swing.JPanel JP_Buscar_Producción;
     private javax.swing.JPanel JP_Cambiar_Producto;
+    private javax.swing.JPanel JP_Cargar_Produccion;
     private javax.swing.JPanel JP_Clientes;
     private javax.swing.JPanel JP_Comenzar_Venta;
     private javax.swing.JPanel JP_Eliminar_Cliente;
@@ -2086,7 +2240,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -2094,11 +2254,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JRadioButton jOPTB_BPF;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane10;
+    private javax.swing.JScrollPane jScrollPane11;
+    private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -2106,8 +2270,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
+    private javax.swing.JTable jTable4;
+    private javax.swing.JTable jTable5;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
