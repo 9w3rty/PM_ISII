@@ -7,11 +7,15 @@ package Vista;
 
 import Conexión.SQL_Conexión;
 import Controlador.Gestor_Cliente;
+import Controlador.Gestor_Materia_Prima;
 import Controlador.Gestor_Producción;
 import Controlador.Gestor_Producto;
+import Controlador.Gestor_Variedad_MateriaPrima;
 import Controlador.Gestor_Venta;
 import Modelo.FFecha;
+import Modelo.MP_ViewModel;
 import Modelo.Producto;
+import Modelo.Variedad_MP;
 import com.sun.glass.events.KeyEvent;
 import java.awt.Font;
 import java.sql.ResultSet;
@@ -250,19 +254,25 @@ public class MenuPrincipal extends javax.swing.JFrame {
         JL_Seleccione_un_Producto = new javax.swing.JLabel();
         JL_seleccione_variedad = new javax.swing.JLabel();
         jScrollPane9 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        JT_Produ_StockActual_MP = new javax.swing.JTable();
         jScrollPane10 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jScrollPane11 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        JT_Produ_Variedad = new javax.swing.JTable();
+        JDC_Cargaar_Produ_fecha = new com.toedter.calendar.JDateChooser();
+        JL_Cargar_Produ_fecha = new javax.swing.JLabel();
+        JL_Produ_Sel_MP = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane12 = new javax.swing.JScrollPane();
-        jTable5 = new javax.swing.JTable();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        JT_Produ_NuevoStock_MP = new javax.swing.JTable();
+        JB_Produ_CargarProduccion = new javax.swing.JButton();
+        JB_Produ_Cancelar_Produccion = new javax.swing.JButton();
+        JL_Produ_indique_cantxprodu = new javax.swing.JLabel();
+        JTF_Produ_CantProduxProducto = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        JDC_Produ_Vencimiento_fecha = new com.toedter.calendar.JDateChooser();
+        jLabel10 = new javax.swing.JLabel();
+        JFT_Produ_LoteProduccion = new javax.swing.JTextField();
+        jScrollPane11 = new javax.swing.JScrollPane();
+        JT_Produ_Productos = new javax.swing.JTable();
         JP_Clientes = new javax.swing.JPanel();
         JP_Botones_Ventas = new javax.swing.JPanel();
         JB_Nuevo_Cliente = new javax.swing.JButton();
@@ -373,7 +383,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(JB_Cambiar_Producto)
                 .addGap(67, 67, 67)
                 .addComponent(JB_Baja_Producto)
-                .addContainerGap(484, Short.MAX_VALUE))
+                .addContainerGap(576, Short.MAX_VALUE))
         );
 
         JP_Productos.add(JP_botones_Productos, java.awt.BorderLayout.LINE_START);
@@ -452,7 +462,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addGroup(JP_Cambiar_ProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(JL_NNombre)
                     .addComponent(JL_NCodigo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 479, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 501, Short.MAX_VALUE)
                 .addGroup(JP_Cambiar_ProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(JP_Cambiar_ProductoLayout.createSequentialGroup()
                         .addComponent(JB_Aceptar_CambiarProducto)
@@ -493,7 +503,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addGroup(JP_Cambiar_ProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JB_Aceptar_CambiarProducto)
                     .addComponent(JB_Limpiar_CambiarProducto))
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addContainerGap(218, Short.MAX_VALUE))
         );
 
         JP_info_Productos.add(JP_Cambiar_Producto, "card4");
@@ -552,7 +562,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addGroup(JP_Baja_ProductoLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addGroup(JP_Baja_ProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1192, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1250, Short.MAX_VALUE)
                     .addGroup(JP_Baja_ProductoLayout.createSequentialGroup()
                         .addComponent(JL_Info_Baja)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -565,7 +575,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(JL_Info_Baja)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 199, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 288, Short.MAX_VALUE)
                 .addGroup(JP_Baja_ProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JB_Eliminar)
                     .addComponent(JB_Cancelar_Eliminar))
@@ -617,7 +627,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                         .addComponent(JB_Cancelar_NuevoProdu))
                     .addComponent(JTF_Codigo_Producto)
                     .addComponent(JTF_Nombre_Producto))
-                .addContainerGap(565, Short.MAX_VALUE))
+                .addContainerGap(582, Short.MAX_VALUE))
         );
         JP_Alta_ProductoLayout.setVerticalGroup(
             JP_Alta_ProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -630,7 +640,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addGroup(JP_Alta_ProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JL_Codigo_Producto)
                     .addComponent(JTF_Codigo_Producto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 462, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 549, Short.MAX_VALUE)
                 .addGroup(JP_Alta_ProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JB_Aceptar_NuevoProducto)
                     .addComponent(JB_Cancelar_NuevoProdu))
@@ -647,11 +657,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         JP_MateriaPrima.setLayout(JP_MateriaPrimaLayout);
         JP_MateriaPrimaLayout.setHorizontalGroup(
             JP_MateriaPrimaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1361, Short.MAX_VALUE)
+            .addGap(0, 1441, Short.MAX_VALUE)
         );
         JP_MateriaPrimaLayout.setVerticalGroup(
             JP_MateriaPrimaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 719, Short.MAX_VALUE)
+            .addGap(0, 812, Short.MAX_VALUE)
         );
 
         JTB_Menu.addTab("Materia Prima", JP_MateriaPrima);
@@ -660,11 +670,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         JP_Variedades.setLayout(JP_VariedadesLayout);
         JP_VariedadesLayout.setHorizontalGroup(
             JP_VariedadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1361, Short.MAX_VALUE)
+            .addGap(0, 1441, Short.MAX_VALUE)
         );
         JP_VariedadesLayout.setVerticalGroup(
             JP_VariedadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 719, Short.MAX_VALUE)
+            .addGap(0, 812, Short.MAX_VALUE)
         );
 
         JTB_Menu.addTab("Variedades", JP_Variedades);
@@ -673,11 +683,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         JP_Proveedores.setLayout(JP_ProveedoresLayout);
         JP_ProveedoresLayout.setHorizontalGroup(
             JP_ProveedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1361, Short.MAX_VALUE)
+            .addGap(0, 1441, Short.MAX_VALUE)
         );
         JP_ProveedoresLayout.setVerticalGroup(
             JP_ProveedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 719, Short.MAX_VALUE)
+            .addGap(0, 812, Short.MAX_VALUE)
         );
 
         JTB_Menu.addTab("Proveedores", JP_Proveedores);
@@ -715,7 +725,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addGroup(JP_botones_VentasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(JB_Ventas_ComenzarVenta)
-                .addContainerGap(681, Short.MAX_VALUE))
+                .addContainerGap(770, Short.MAX_VALUE))
         );
 
         JP_Ventas.add(JP_botones_Ventas, java.awt.BorderLayout.LINE_START);
@@ -876,7 +886,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(JL_SignoARS, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(11, 11, 11))
-                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE))))
+                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE))))
                         .addGap(93, 93, 93))))
         );
         JP_Comenzar_VentaLayout.setVerticalGroup(
@@ -909,7 +919,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addGroup(JP_Comenzar_VentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JB_Ventas_Finalizar)
                     .addComponent(JTF_Ventas_Cancelar))
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addContainerGap(183, Short.MAX_VALUE))
         );
 
         JP_info_Ventas.add(JP_Comenzar_Venta, "card7");
@@ -933,6 +943,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
 
         jButton5.setText("Cargar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout JP_botones_ProduccionesLayout = new javax.swing.GroupLayout(JP_botones_Producciones);
         JP_botones_Producciones.setLayout(JP_botones_ProduccionesLayout);
@@ -952,7 +967,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(JB_Buscar_Producciones)
                 .addGap(34, 34, 34)
                 .addComponent(jButton5)
-                .addContainerGap(616, Short.MAX_VALUE))
+                .addContainerGap(711, Short.MAX_VALUE))
         );
 
         JP_Producciones.add(JP_botones_Producciones, java.awt.BorderLayout.LINE_START);
@@ -1040,7 +1055,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(JB_Producciones_Aceptar_Busqueda)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addContainerGap(211, Short.MAX_VALUE))
         );
 
         JP_info_Producciones.add(JP_Buscar_Producción, "card2");
@@ -1049,7 +1064,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         JL_seleccione_variedad.setText("Seleccione una Variedad:");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        JT_Produ_StockActual_MP.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -1060,9 +1075,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane9.setViewportView(jTable2);
+        jScrollPane9.setViewportView(JT_Produ_StockActual_MP);
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        JT_Produ_Variedad.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -1073,29 +1088,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane10.setViewportView(jTable3);
+        jScrollPane10.setViewportView(JT_Produ_Variedad);
 
-        jLabel9.setText("Seleccione la fecha del día de Producción: ");
+        JL_Cargar_Produ_fecha.setText("Seleccione la fecha del día de Producción: ");
 
-        jLabel10.setText("Seleccione la materia prima utilizada:");
-
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        jTable4.setPreferredSize(new java.awt.Dimension(150, 450));
-        jScrollPane11.setViewportView(jTable4);
+        JL_Produ_Sel_MP.setText("Seleccione la materia prima utilizada:");
 
         jLabel11.setText("Indique la cantidad de materia prima utilizada, modificando el campo \"Cantidad\".");
 
-        jTable5.setModel(new javax.swing.table.DefaultTableModel(
+        JT_Produ_NuevoStock_MP.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -1106,11 +1107,30 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane12.setViewportView(jTable5);
+        jScrollPane12.setViewportView(JT_Produ_NuevoStock_MP);
 
-        jButton6.setText("Aceptar");
+        JB_Produ_CargarProduccion.setText("Aceptar");
 
-        jButton7.setText("Cancelar");
+        JB_Produ_Cancelar_Produccion.setText("Cancelar");
+
+        JL_Produ_indique_cantxprodu.setText("Indique la cantidad producidad:");
+
+        jLabel9.setText("Seleccione la fecha de vencimiento:");
+
+        jLabel10.setText("Ingrese le Lote para la producción:");
+
+        JT_Produ_Productos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane11.setViewportView(JT_Produ_Productos);
 
         javax.swing.GroupLayout JP_Cargar_ProduccionLayout = new javax.swing.GroupLayout(JP_Cargar_Produccion);
         JP_Cargar_Produccion.setLayout(JP_Cargar_ProduccionLayout);
@@ -1119,55 +1139,80 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addGroup(JP_Cargar_ProduccionLayout.createSequentialGroup()
                 .addGap(62, 62, 62)
                 .addGroup(JP_Cargar_ProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton6)
+                    .addGroup(JP_Cargar_ProduccionLayout.createSequentialGroup()
+                        .addComponent(JL_Produ_indique_cantxprodu)
+                        .addGap(82, 82, 82)
+                        .addComponent(JTF_Produ_CantProduxProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(JB_Produ_CargarProduccion)
                     .addGroup(JP_Cargar_ProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(JP_Cargar_ProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addGroup(JP_Cargar_ProduccionLayout.createSequentialGroup()
-                                .addComponent(jLabel9)
+                        .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(JP_Cargar_ProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JP_Cargar_ProduccionLayout.createSequentialGroup()
+                                .addComponent(JL_Cargar_Produ_fecha)
                                 .addGap(112, 112, 112)
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane9, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(JL_Seleccione_un_Producto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(JDC_Cargaar_Produ_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(JL_Seleccione_un_Producto, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(JL_Produ_Sel_MP, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 245, Short.MAX_VALUE)
-                .addGroup(JP_Cargar_ProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(JP_Cargar_ProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
-                        .addComponent(JL_seleccione_variedad, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane10))
-                    .addComponent(jLabel11)
-                    .addComponent(jButton7))
-                .addGap(52, 52, 52))
+                .addGroup(JP_Cargar_ProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(JP_Cargar_ProduccionLayout.createSequentialGroup()
+                        .addGroup(JP_Cargar_ProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11)
+                            .addComponent(JB_Produ_Cancelar_Produccion)
+                            .addGroup(JP_Cargar_ProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(JP_Cargar_ProduccionLayout.createSequentialGroup()
+                                    .addComponent(jLabel9)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(JDC_Produ_Vencimiento_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
+                                .addComponent(JL_seleccione_variedad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane10, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addGap(52, 52, 52))
+                    .addGroup(JP_Cargar_ProduccionLayout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(JFT_Produ_LoteProduccion, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43))))
         );
         JP_Cargar_ProduccionLayout.setVerticalGroup(
             JP_Cargar_ProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JP_Cargar_ProduccionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(JP_Cargar_ProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
+                .addGroup(JP_Cargar_ProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(JDC_Cargaar_Produ_fecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(JP_Cargar_ProduccionLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel9))
+                    .addComponent(JDC_Produ_Vencimiento_fecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(JL_Cargar_Produ_fecha, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(35, 35, 35)
-                .addGroup(JP_Cargar_ProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JL_Seleccione_un_Producto)
-                    .addComponent(JL_seleccione_variedad))
+                .addGroup(JP_Cargar_ProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(JL_seleccione_variedad, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(JL_Seleccione_un_Producto))
                 .addGap(18, 18, 18)
                 .addGroup(JP_Cargar_ProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(52, 52, 52)
                 .addGroup(JP_Cargar_ProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
+                    .addComponent(JL_Produ_Sel_MP)
                     .addComponent(jLabel11))
-                .addGap(54, 54, 54)
-                .addGroup(JP_Cargar_ProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+                .addGap(46, 46, 46)
+                .addGroup(JP_Cargar_ProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                    .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(51, 51, 51)
                 .addGroup(JP_Cargar_ProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton6)
-                    .addComponent(jButton7))
-                .addGap(54, 54, 54))
+                    .addComponent(JL_Produ_indique_cantxprodu)
+                    .addComponent(JTF_Produ_CantProduxProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addComponent(JFT_Produ_LoteProduccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(JP_Cargar_ProduccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JB_Produ_CargarProduccion)
+                    .addComponent(JB_Produ_Cancelar_Produccion))
+                .addContainerGap(165, Short.MAX_VALUE))
         );
 
         JP_info_Producciones.add(JP_Cargar_Produccion, "card3");
@@ -1207,7 +1252,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(JB_Modificar_Cliente)
                 .addGap(46, 46, 46)
                 .addComponent(JB_Eliminar_Cliente)
-                .addContainerGap(490, Short.MAX_VALUE))
+                .addContainerGap(585, Short.MAX_VALUE))
         );
 
         JP_Clientes.add(JP_Botones_Ventas, java.awt.BorderLayout.LINE_START);
@@ -1274,7 +1319,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addGroup(JP_Agregar_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JB_Ingresar_Cliente_Aceptar)
                     .addComponent(JB_Ingresar_Cliente_Cancelar))
-                .addContainerGap(318, Short.MAX_VALUE))
+                .addContainerGap(413, Short.MAX_VALUE))
         );
 
         JP_info_Clientes.add(JP_Agregar_Cliente, "card4");
@@ -1323,7 +1368,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel8)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 261, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 356, Short.MAX_VALUE)
                 .addGroup(JP_Eliminar_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
                     .addComponent(jButton4))
@@ -1432,7 +1477,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addGroup(JP_Modificar_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap(153, Short.MAX_VALUE))
+                .addContainerGap(248, Short.MAX_VALUE))
         );
 
         JP_info_Clientes.add(JP_Modificar_Cliente, "card2");
@@ -1457,7 +1502,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(JTB_Menu, javax.swing.GroupLayout.DEFAULT_SIZE, 747, Short.MAX_VALUE)
+            .addComponent(JTB_Menu, javax.swing.GroupLayout.PREFERRED_SIZE, 747, Short.MAX_VALUE)
         );
 
         pack();
@@ -1524,10 +1569,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void JB_Buscar_ProduccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_Buscar_ProduccionesActionPerformed
         // TODO add your handling code here:
-        JP_info_Ventas.removeAll();
-        JP_info_Ventas.add(JP_Comenzar_Venta);
-        JP_info_Ventas.repaint();
-        JP_info_Ventas.revalidate();
+        // TODO add your handling code here:
+        JP_info_Producciones.removeAll();
+        JP_info_Producciones.add(JP_Buscar_Producción);
+        JP_info_Producciones.repaint();
+        JP_info_Producciones.revalidate();
     }//GEN-LAST:event_JB_Buscar_ProduccionesActionPerformed
 
     private void JTF_Producciones_NLoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTF_Producciones_NLoteActionPerformed
@@ -2070,7 +2116,88 @@ public class MenuPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         cargarTablaEliminar();
     }//GEN-LAST:event_JB_Cancelar_EliminarActionPerformed
- public void construir_tabla(ResultSet sr){
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        JP_info_Producciones.removeAll();
+        JP_info_Producciones.add(JP_Cargar_Produccion);
+        JP_info_Producciones.repaint();
+        JP_info_Producciones.revalidate();
+        cargarProductosProducciones();
+        cargarVariedadesProducciones();
+        cargarMPSProducciones();
+    }//GEN-LAST:event_jButton5ActionPerformed
+    private void cargarMPSProducciones(){
+        
+        DefaultTableModel m = new DefaultTableModel();
+        m.addColumn("Materia Prima");
+        m.addColumn("N° Lote");
+        m.addColumn("Código M.P.");
+        m.addColumn("Stock Actual");
+        this.JT_Produ_StockActual_MP.setModel(m);
+        ArrayList<MP_ViewModel> ListaMP= new ArrayList<>();
+        ListaMP=Gestor_Materia_Prima.traerMateriasPrimas();
+        
+      
+        int i=0;
+        Object aux[] = new Object[m.getColumnCount()];
+         
+         for(i=0 ; i < ListaMP.size() ; i++){
+
+            aux[0]= ListaMP.get(i).getNbre_MP();
+            aux[1]= ListaMP.get(i).getLote();
+            aux[2]= ListaMP.get(i).getCodigo();
+            aux[3]= ListaMP.get(i).getSa();
+            m.addRow(aux);
+
+            }
+    }
+   
+    private void cargarVariedadesProducciones(){
+        DefaultTableModel m = new DefaultTableModel();
+        m.addColumn("Variedad");
+        m.addColumn("Código de la Variedad");
+        this.JT_Produ_Variedad.setModel(m);
+        ArrayList<Variedad_MP> ListaV = new ArrayList<>();
+        ListaV=Gestor_Variedad_MateriaPrima.traerVariedadesProductos();
+        int auxcant=ListaV.size(), auxit=0;
+        
+        Object aux[] = new Object[m.getColumnCount()];
+        
+        for (auxit=0; auxit<auxcant; auxit++){
+            aux[0]= ListaV.get(auxit).getNombre();
+            aux[1]= ListaV.get(auxit).getCodigo();
+            m.addRow(aux);
+            
+        }
+    }
+    private void cargarProductosProducciones(){
+        
+        DefaultTableModel m = new DefaultTableModel();
+        m.addColumn("Nombre del Producto");
+        m.addColumn("Código del Producto");
+        this.JT_Produ_Productos.setModel(m);
+        
+        ArrayList Lista = new ArrayList();
+        Lista=Gestor_Producto.traerListaProductos();
+         int auxcant=Lista.size(),auxit,i=0,j=1;
+         
+         //System.out.println(Lista.get(0));
+         Object p[] = new Object[m.getColumnCount()];
+         
+         for(auxit=0 ; auxit <(int)(auxcant/2) ; auxit++){
+             p[0]= Lista.get(i+auxit);
+             p[1]= Lista.get(j+auxit);
+             i++;j++;
+             
+             
+             m.addRow(p);
+         }
+
+     }
+    
+    
+    public void construir_tabla(ResultSet sr){
             modelo= new DefaultTableModel();
             modelo.addColumn("Fecha de Elaboración");
             modelo.addColumn("Fecha de Vencimiento");
@@ -2170,11 +2297,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton JB_Limpiar_CambiarProducto;
     private javax.swing.JButton JB_Modificar_Cliente;
     private javax.swing.JButton JB_Nuevo_Cliente;
+    private javax.swing.JButton JB_Produ_Cancelar_Produccion;
+    private javax.swing.JButton JB_Produ_CargarProduccion;
     private javax.swing.JButton JB_Producciones_Aceptar_Busqueda;
     private javax.swing.JButton JB_Quitar_Producto;
     private javax.swing.JButton JB_Ventas_ComenzarVenta;
     private javax.swing.JButton JB_Ventas_Finalizar;
+    private com.toedter.calendar.JDateChooser JDC_Cargaar_Produ_fecha;
+    private com.toedter.calendar.JDateChooser JDC_Produ_Vencimiento_fecha;
     private com.toedter.calendar.JDateChooser JDC_Producciones_BuscarFecha;
+    private javax.swing.JTextField JFT_Produ_LoteProduccion;
+    private javax.swing.JLabel JL_Cargar_Produ_fecha;
     private javax.swing.JLabel JL_Codigo_Producto;
     private javax.swing.JLabel JL_Info_Baja;
     private javax.swing.JLabel JL_Info_en_cambiar;
@@ -2185,6 +2318,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel JL_NCodigo;
     private javax.swing.JLabel JL_NNombre;
     private javax.swing.JLabel JL_Nombre_Producto;
+    private javax.swing.JLabel JL_Produ_Sel_MP;
+    private javax.swing.JLabel JL_Produ_indique_cantxprodu;
     private javax.swing.JLabel JL_Seleccione_un_Producto;
     private javax.swing.JLabel JL_SignoARS;
     private javax.swing.JLabel JL_info_Venta1;
@@ -2228,9 +2363,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField JTF_NCodigo_Producto;
     private javax.swing.JTextField JTF_NNombre_Producto;
     private javax.swing.JTextField JTF_Nombre_Producto;
+    private javax.swing.JTextField JTF_Produ_CantProduxProducto;
     private javax.swing.JTextField JTF_Producciones_NLote;
     private javax.swing.JButton JTF_Ventas_Cancelar;
     private javax.swing.JTable JT_Modificar_Cliente;
+    private javax.swing.JTable JT_Produ_NuevoStock_MP;
+    private javax.swing.JTable JT_Produ_Productos;
+    private javax.swing.JTable JT_Produ_StockActual_MP;
+    private javax.swing.JTable JT_Produ_Variedad;
     private javax.swing.JTable JT_Producciones;
     private javax.swing.JTable JT_Ventas_Acumulado;
     private javax.swing.JTable JT_Ventas_Clientes;
@@ -2241,9 +2381,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2273,10 +2410,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
-    private javax.swing.JTable jTable5;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;

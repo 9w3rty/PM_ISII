@@ -8,6 +8,7 @@ import Conexión.SQL_Conexión;
 import Modelo.Producto;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -137,6 +138,31 @@ public class Gestor_Producto {
         
         return exito;
     }
+    
+    public static ArrayList traerListaProductos(){
+        ArrayList Lista= new ArrayList();
+        SQL_Conexión.getInstance().connect();
+        ResultSet rs;
+        
+        String queryTraeProductos= " Select nbre_p, cod_p from producto";
+        rs=SQL_Conexión.getInstance().executeQuery(queryTraeProductos);
+        int aux =0;    
+            
+        try {
+            while (rs.next()){
+                Lista.add(rs.getString(1));
+                Lista.add(rs.getString(2));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Gestor_Producto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
+            
+              
+              return Lista;       
+    }
+              
+          
     
     public void consultar_nombre() {}
     public void consultar_stock() {}

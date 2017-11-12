@@ -17,7 +17,7 @@ public class Gestor_Venta {
         
         // SE CONECTA
         SQL_Conexión.getInstance().connect();
-        String query = "INSERT INTO venta (imp_total, n_c, fecha) VALUES ( "+total+", '" + nombre + "', '"+fecha+"' )";
+        String query = "INSERT INTO venta (imp_total, n_c, fechav) VALUES ( "+total+", '" + nombre + "', '"+fecha+"' )";
         
         boolean exito = SQL_Conexión.getInstance().updateQuery(query);
         
@@ -26,5 +26,5 @@ public class Gestor_Venta {
         
         return exito;
     }
-    
+  
 }

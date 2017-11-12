@@ -24,7 +24,7 @@ public class Gestor_Producción {
         
         return SQL_Conexión.getInstance().executeQuery(queryConsultaPLote);
     }
-       
+      
     public void consultar_fecha() {}
     public void consultar_lote() {}
     public void consultar_vencimiento() {}
