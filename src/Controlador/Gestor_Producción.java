@@ -24,6 +24,12 @@ public class Gestor_Producción {
         
         return SQL_Conexión.getInstance().executeQuery(queryConsultaPLote);
     }
+        public static boolean registrar_Produccion(String f, String fv, int c, String l, String cod_p, String cod_vmp){
+        SQL_Conexión.getInstance().connect();
+        String query="Insert into produccion values ('"+f+"','"+fv+"','"+c+"','"+l+"','"+cod_p+"','"+cod_vmp+"')";
+        boolean exito = SQL_Conexión.getInstance().updateQuery(query);
+        return exito;
+       }
       
     public void consultar_fecha() {}
     public void consultar_lote() {}

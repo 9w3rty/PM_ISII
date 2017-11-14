@@ -36,15 +36,15 @@ public class Gestor_Materia_Prima {
             while (rs.next()){
                 MP_ViewModel auxv=new MP_ViewModel();
                 auxv.setNbre_MP(rs.getString(1));
-                System.out.println(auxv.getNbre_MP());
+                
                 auxv.setLote(rs.getString(2));
-                System.out.println(auxv.getLote());
+               
                 auxv.setCodigo(rs.getString(3));
-                System.out.println(auxv.getCodigo());
+                
                 auxv.setSa(rs.getFloat(4));
-                System.out.println(auxv.getSa());
+               
                 Lista.add(auxv);
-                System.out.println(Lista.get(0).getNbre_MP());
+               
             }
         } catch (SQLException ex) {
             Logger.getLogger(Gestor_Producto.class.getName()).log(Level.SEVERE, null, ex);
